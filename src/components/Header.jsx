@@ -29,10 +29,10 @@ export default function Header() {
 
 
       <div className="Options-menu">
-        <a href="#">MOVIES</a>
-        <a href="#">Sports</a>
-        <a href="#">Drama</a>
-        <a href="#">Events</a>
+        <a href="http://localhost:3000/">MOVIES</a>
+        <a href="http://localhost:3000/">Sports</a>
+        <a href="http://localhost:3000/">Drama</a>
+        <a href="http://localhost:3000/">Events</a>
       </div>
     </div>
   );

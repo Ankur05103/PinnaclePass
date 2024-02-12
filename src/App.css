@@ -1,0 +1,37 @@
+
+.TopPicks {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  padding: 20px 0;
+  margin-left: 20px;
+  white-space: nowrap;
+}
+
+.TopPicks > .movie {
+  flex: 0 0 auto;
+  margin-top: 0px;
+}
+
+strong.TopPicks {
+  margin-left: 20px;
+  font-size: large;
+  margin-bottom: 0;
+}
+
+.TopPicks::-webkit-scrollbar {
+  width: 0;
+}
+
+.TopPicks::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.TopPicks::-webkit-scrollbar-thumb {
+  background: #bebcbc;
+  border-radius: 5px;
+}
+
+.TopPicks::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
