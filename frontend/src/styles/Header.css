@@ -79,13 +79,12 @@ body {
   color: black;
 }
 
-/* auth forms */
-form.signup, form.login {
-  font-family: "Open Sans", sans-serif;
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 4px;
+.logout-button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #ff7f50, #ff4c29);
+  color: #fff;
+  cursor: pointer;
 }
 

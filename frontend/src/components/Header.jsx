@@ -2,10 +2,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Header.css";
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 export default function Header() {
   const toggleMenu = () => {
     alert("Have to show menu");
   };
+
+  const {logout} = useLogout()
+  const { user } = useAuthContext()
+ 
+  const handleClick = () => {
+    logout()
+  }
 
   return (
     <div>
@@ -33,14 +43,20 @@ export default function Header() {
         <a href="http://localhost:3000/">Sports</a>
         <a href="http://localhost:3000/">Drama</a>
         <a href="http://localhost:3000/">Events</a>
-        <a href="/login">Login</a>
+        {user && (<div >
+            <span>{user.email}</span>
+            <button onClick={handleClick} className="logout-button">Log out</button>
+          </div>
+        )
+        }
+        {!user &&(
+          // <div>
+            <a href="/login">Login</a>
+          // </div>
+        )}
+        {!user &&(
         <a href="/signup">SignUp</a>
-        {/* <Link to ="/login">
-          <h1>Login</h1>
-        </Link>
-        <Link to ="/signup">
-          <h1>Signup</h1>
-        </Link> */}
+        )}
       </div>
     </div>
   );
