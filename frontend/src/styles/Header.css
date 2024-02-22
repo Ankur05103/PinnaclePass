@@ -1,0 +1,91 @@
+.logo span {
+  color: red;
+  font-size: 2rem;
+}
+.logo {
+  font-size: 2rem;
+  height: 10px;
+  margin: 5px 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+body {
+  background: #f2f2f2;
+  font-family: "Open Sans", sans-serif;
+}
+
+.search {
+  width: 25%;
+  height: 36px;
+  position: relative;
+  display: flex;
+  margin: 5px 10px;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 2px solid black;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.searchTerm:focus {
+  color: #00b4cc;
+}
+
+.searchButton {
+  width: 40px;
+  height: 33px;
+  border: 2px solid black;
+  background: black;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+.wrap {
+  display: absolute;
+}
+
+.Drawer .fa-bars {
+  font-size: 24px;
+  margin: 5px 10px;
+}
+
+.Options-menu {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
+.Options-menu > * {
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 4rem;
+  text-decoration: none;
+  color: grey;
+}
+
+.Options-menu > a:hover {
+  color: black;
+}
+
+/* auth forms */
+form.signup, form.login {
+  font-family: "Open Sans", sans-serif;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}
+
