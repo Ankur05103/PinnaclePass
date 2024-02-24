@@ -8,7 +8,8 @@ export default function MovieCard() {
       <div className="details">
         <h2>Adipurush</h2>
         <p>Description Description Description Description Description</p>
-        <button type="submit">Book</button>
+        <a href="/booking"><button type="submit" onClick={()=>{}}>Book</button></a>
+        
       </div>
     </div>
   );

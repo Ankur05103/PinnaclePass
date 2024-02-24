@@ -39,10 +39,10 @@ export default function Header() {
 
 
       <div className="Options-menu">
-        <a href="http://localhost:3000/">MOVIES</a>
-        <a href="http://localhost:3000/">Sports</a>
-        <a href="http://localhost:3000/">Drama</a>
-        <a href="http://localhost:3000/">Events</a>
+        <a href="http://localhost:4002/">Movies</a>
+        <a href="http://localhost:4002/">Sports</a>
+        <a href="http://localhost:4002/">Drama</a>
+        <a href="http://localhost:4002/">Events</a>
         {user && (<div >
             <span>{user.email}</span>
             <button onClick={handleClick} className="logout-button">Log out</button>

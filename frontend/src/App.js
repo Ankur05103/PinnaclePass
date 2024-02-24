@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup";
+import BookingPage from "./pages/BookingPage";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
             <Route
               path="/signup"
               element = {<Signup/>}
+            />
+            <Route
+              path="/booking"
+              element = {<BookingPage/>}
             />
           </Routes>
         </div>
