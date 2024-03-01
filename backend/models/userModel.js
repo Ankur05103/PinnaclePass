@@ -13,22 +13,30 @@ const userSchema = new Schema({
     password:{
         type:String,
         required:true,
+    },
+    mobile:{
+        type:String,
+        required:true,
+        unique:true
     }
 })
 
 //static signup method with validation checks
 //we can't arrow function while using this keyword
-userSchema.statics.signup = async function(email,password) {
+userSchema.statics.signup = async function(email,password,mobile) {
 
     //validation
-    if(!email || !password){
-        throw Error('Email and password are compulsary')
+    if(!email || !password || !mobile){
+        throw Error('Email , password and mobile number are compulsary')
     }
     if(!validator.isEmail(email)){
         throw Error('Enter a valid email')
     }
     if(!validator.isStrongPassword(password)){
         throw Error('Enter a strong password')
+    }
+    if(!validator.isMobilePhone(mobile)){
+        throw Error('Wrong mobile phone number')
     }
 
 
@@ -41,7 +49,7 @@ userSchema.statics.signup = async function(email,password) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password,salt)
 
-    const user = await this.create({ email,password:hash})
+    const user = await this.create({ email,password:hash,mobile})
 
     return user
 }

@@ -51,12 +51,12 @@ export default function Header() {
         }
         {!user &&(
           // <div>
-            <a href="/login">Login</a>
+            <a href="/login">Login/Signup</a>
           // </div>
         )}
-        {!user &&(
+        {/* {!user &&(
         <a href="/signup">SignUp</a>
-        )}
+        )} */}
       </div>
     </div>
   );
