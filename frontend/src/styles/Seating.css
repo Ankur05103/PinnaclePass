@@ -1,0 +1,36 @@
+.seating {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); 
+    gap: 3px;
+    margin-top: 10px;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+}
+
+.seat {
+    background-color: #ff7f50;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.seat.selected {
+    background-color: green;
+}
+
+.selected-seats {
+    margin-top: 20px;
+}

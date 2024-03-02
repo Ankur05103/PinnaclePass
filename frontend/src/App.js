@@ -5,6 +5,7 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup";
 import BookingPage from "./pages/BookingPage";
+import Seating from "./pages/Seating";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             /> */}
             <Route
               path="/booking"
-              element = {<BookingPage/>}
+              element = {<Seating/>}
             />
           </Routes>
         </div>
