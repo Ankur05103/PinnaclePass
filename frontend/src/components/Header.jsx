@@ -19,15 +19,15 @@ export default function Header() {
 
   return (
     <div>
-      <nav>
+      <nav className="navigation">
         <div className="logo">
           Pinnacle
           <span>Pass</span>
         </div>
 
-        <div className="search">
-          <input type="text" className="searchTerm" placeholder="Search" />
-          <button type="submit" className="searchButton">
+        <div className="nav-search">
+          <input type="text" className="nav-searchTerm" placeholder="Search" />
+          <button type="submit" className="nav-searchButton">
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </div>
