@@ -102,7 +102,10 @@ const Seating = () => {
           ))}
         </div>
       </div>
-
+      <div className="seats-screen">
+        <div className="seat-screen-light"></div>
+        <div className="seat-screen-div"></div>
+      </div>
       <div className="selected-seats">
         <p>Selected Seats: {selectedSeats.join(", ")}</p>
         <p>

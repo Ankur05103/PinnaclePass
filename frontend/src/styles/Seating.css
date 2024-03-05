@@ -14,6 +14,7 @@
   justify-content: center;
   margin-top: 10px;
   max-width: 400px;
+  margin-bottom: 40px;
 }
 
 .seat-row {
@@ -31,6 +32,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  border-radius: 10px 10px 0 0;
 }
 
 .seat.selected {
@@ -49,11 +51,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+
+  margin: 0;
 }
 .dates {
   width: 100%;
+  height: 60px;
   display: flex;
+  margin: 0;
   align-items: center;
   justify-content: space-between;
 }
@@ -78,7 +83,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
 }
 .time {
   font-size: 14px;
@@ -91,4 +95,34 @@
 .timings input:checked + label {
   background: rgb(28, 185, 120);
   color: white;
+}
+
+.seats-screen {
+  position: relative;
+}
+
+.seat-screen-light,
+.seat-screen-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.seat-screen-light {
+  height: 15px;
+  width: 30%;
+  margin-left: 35%;
+  background: linear-gradient(
+    to top,
+    rgb(229, 228, 228),
+    rgba(128, 128, 128, 0.313)
+  );
+}
+
+.seat-screen-div {
+  height: 5px;
+  width: 30%;
+  margin-left: 35%;
+  background-color: grey;
+  margin-top: 15px;
 }
