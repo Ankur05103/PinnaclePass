@@ -28,6 +28,10 @@ function App() {
             /> */}
             <Route
               path="/booking"
+              element = {<BookingPage/>}
+            />
+            <Route
+              path="/seats"
               element = {<Seating/>}
             />
           </Routes>
