@@ -2,6 +2,8 @@ import { useState } from "react"
 import '../styles/Login.css'
 import { useLogin } from "../hooks/useLogin"
 import { useSignup } from "../hooks/useSignup"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-hot-toast"
 
 // const Signup = () => {
 //   const [email, setEmail] = useState('')
@@ -40,6 +42,8 @@ import { useSignup } from "../hooks/useSignup"
 // }
 
 const Login = () => {
+  console.log("000000000")
+  const navigate=useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mobile, setMobile] = useState('')
@@ -51,6 +55,8 @@ const Login = () => {
 
     // console.log(email, password)
     await login(email,password)
+    navigate("/")
+    toast.success("Login Successful")
   }
 
   const handleSignupSubmit = async (e) => {
@@ -58,6 +64,8 @@ const Login = () => {
     
         // console.log(email, password)
         await signup(email,password,mobile)
+        navigate("/")
+        toast.success("Signup Successful")
       }
 
   return (

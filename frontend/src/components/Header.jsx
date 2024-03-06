@@ -1,9 +1,10 @@
-// import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Header.css";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import {Link} from 'react-router-dom';
+import { toast } from "react-hot-toast"
 
 export default function Header() {
   const toggleMenu = () => {
@@ -15,14 +16,18 @@ export default function Header() {
  
   const handleClick = () => {
     logout()
+    toast.success("Logged out successfully")
   }
 
   return (
     <div>
       <nav className="navigation">
-        <div className="logo">
+        <div >
+          <Link to="/" className="logo"> 
           Pinnacle
           <span>Pass</span>
+          </Link>
+          
         </div>
 
         <div className="nav-search">
@@ -32,31 +37,36 @@ export default function Header() {
           </button>
         </div>
 
+        <div className="Logout-div">
+        {user && (
+        <div >
+            <span>{user.email}</span>
+            <button onClick={handleClick} className="logout-button">Log out</button>
+        </div>
+        )
+        
+        }
+        {!user &&(
+              <Link to="/login" >
+                  <button className="LoginButton">Login/Signup</button>
+              </Link>
+        )}
+        
         <div className="Drawer" onClick={toggleMenu}>
           <FontAwesomeIcon icon={faBars} />
         </div>
+        
+        </div>
+
+
       </nav>
 
 
       <div className="Options-menu">
-        <a href="http://localhost:4002/">Movies</a>
-        <a href="http://localhost:4002/">Sports</a>
-        <a href="http://localhost:4002/">Drama</a>
-        <a href="http://localhost:4002/">Events</a>
-        {user && (<div >
-            <span>{user.email}</span>
-            <button onClick={handleClick} className="logout-button">Log out</button>
-          </div>
-        )
-        }
-        {!user &&(
-          // <div>
-            <a href="/login">Login/Signup</a>
-          // </div>
-        )}
-        {/* {!user &&(
-        <a href="/signup">SignUp</a>
-        )} */}
+      <Link to="/booking" > Movies </Link>
+      <Link to="/booking" > Sports </Link>
+      <Link to="/booking" > Drama </Link>
+      <Link to="/booking" > Events </Link>
       </div>
     </div>
   );

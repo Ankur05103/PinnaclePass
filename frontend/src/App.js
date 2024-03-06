@@ -3,9 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from "./components/Header"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
-import Signup from "./pages/Signup";
 import BookingPage from "./pages/BookingPage";
 import Seating from "./pages/Seating";
+import Footer from "./components/Footer";
+
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             />
           </Routes>
         </div>
+      <Footer />
       </BrowserRouter>
     </div>
   );

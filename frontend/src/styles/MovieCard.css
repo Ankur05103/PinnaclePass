@@ -37,7 +37,7 @@
   color: #666;
 }
 
-.movie > .details > a >button {
+.movie > .details > a > .CardBtn {
   width: 100%;
   padding: 8px 0;
   background: linear-gradient(to right, #ff7f50, #ff4c29);
@@ -48,6 +48,6 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.movie > .details > button:hover {
+.movie > .details > .CardBtn :hover {
   background-color: #ff7f6d;
 }
