@@ -2,18 +2,13 @@ import React from 'react';
 import '../styles/MovieDetails.css';
 import { useParams } from 'react-router-dom';
 import moviesData from '../utils/MoviesList.js';
+import theatersData from '../utils/theatersData.js'
 
 const MovieDetails = ({props}) => {
 
   let { id } = useParams();
 
   const movie = moviesData[id-1]
-
-  // const movie = moviesData.filter((m)=> {
-  //   return m.id === _id ? m.name : null;
-  // })
-
-  // console.log(movie);
 
   if (!movie) {
     return <div>Loading...</div>;
@@ -34,7 +29,7 @@ const MovieDetails = ({props}) => {
         </div>
         <div className="theatres">
           <h3>Theatres & Timings</h3>
-          <ul>
+          {/* <ul>
               <li>
                 <h4>theatre name</h4>
                 <ul>
@@ -49,6 +44,24 @@ const MovieDetails = ({props}) => {
                   <li >timings</li>
                 </ul>
               </li>
+          </ul> */
+          }
+          <ul>
+            {theatersData.map((theater, index) => (
+              <li key={index}>
+                <ul className='timing-list'>
+                <h4>{theater.name}</h4>
+                <div className='movie-timing-grid'>
+                  {theater.timings.map((timing, index) => (
+                    <div className="movie-timing">
+                    <li key={index}>{timing}</li>
+                    </div>
+                  ))}
+                  </div>
+                </ul>
+                
+              </li>
+            ))}
           </ul>
         </div>
       </div>

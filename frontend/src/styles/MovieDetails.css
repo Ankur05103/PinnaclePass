@@ -1,4 +1,4 @@
-/* MovieDetails.css */
+
 
 .movie-details-container {
     max-width: 800px;
@@ -49,5 +49,31 @@
   
   .theatres ul li h4 {
     margin-bottom: 5px;
+  }
+
+  .timing-list{
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    border-bottom: 1px solid rgb(169, 169, 169);
+    align-items: center;
+  }
+
+  .movie-timing{
+    border: 2px solid rgb(202, 201, 201);
+    border-radius: 10px;
+    padding: 8px 16px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .movie-timing-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width :400px;  
+    margin: 8px;
   }
   
