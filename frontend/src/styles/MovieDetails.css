@@ -1,0 +1,53 @@
+/* MovieDetails.css */
+
+.movie-details-container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .movie-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .movie-details-top {
+    display: flex;
+  }
+  
+  .movie-poster {
+    width: 200px;
+    margin-right: 20px;
+  }
+  
+  .movie-poster img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .movie-info {
+    flex: 1;
+  }
+  
+  .theatres {
+    margin-top: 20px;
+  }
+  
+  .theatres h3 {
+    margin-bottom: 10px;
+  }
+  
+  .theatres ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .theatres ul li {
+    margin-bottom: 10px;
+  }
+  
+  .theatres ul li h4 {
+    margin-bottom: 5px;
+  }
+  

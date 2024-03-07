@@ -38,9 +38,13 @@ export default function Header() {
         </div>
 
         <div className="Logout-div">
+          {user && (
+            <div>
+            <span>{user.email}</span>
+            </div>
+          )}
         {user && (
         <div >
-            <span>{user.email}</span>
             <button onClick={handleClick} className="logout-button">Log out</button>
         </div>
         )
@@ -63,7 +67,7 @@ export default function Header() {
 
 
       <div className="Options-menu">
-      <Link to="/booking" > Movies </Link>
+      <Link to="/movies" > Movies </Link>
       <Link to="/booking" > Sports </Link>
       <Link to="/booking" > Drama </Link>
       <Link to="/booking" > Events </Link>

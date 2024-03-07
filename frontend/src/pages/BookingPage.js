@@ -1,30 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import '../styles/MovieDetails.css';
+import { useParams } from 'react-router-dom';
+import moviesData from '../utils/MoviesList.js';
 
-const BookingPage = () => {
+const MovieDetails = ({props}) => {
 
-  const theaters = [
-    { id: 1, name: 'Theater 1', location: 'Location 1' },
-    { id: 2, name: 'Theater 2', location: 'Location 2' },
-    { id: 3, name: 'Theater 3', location: 'Location 3' },
-  ];
+  let { id } = useParams();
+
+  const movie = moviesData[id-1]
+
+  // const movie = moviesData.filter((m)=> {
+  //   return m.id === _id ? m.name : null;
+  // })
+
+  // console.log(movie);
+
+  if (!movie) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="booking-page">
-
-        <div className="theater-cards">
-          <h2>Theaters available on Adipurush:</h2>
-          {theaters.map((theater) => (
-            <div key={theater.id} className="theater-card">
-              <h3>{theater.name}</h3>
-              <p>{theater.location}</p>
-              <a href="/seats"><button onClick={()=>{}}>Book Tickets</button></a>
-              {/* <button onClick={() => {}}>Book Tickets</button> */}
-            </div>
-          ))}
+    <div className="movie-details-container">
+      <div className="movie-details">
+        <div className="movie-details-top">
+          <div className="movie-poster">
+            <img src={movie.poster} alt={movie.name} />
+          </div>
+          <div className="movie-info">
+            <p><strong>Name:</strong> {movie.name}</p>
+            <p><strong>Category:</strong> {movie.category}</p>
+            <p><strong>Languages:</strong> {movie.language}</p>
+          </div>
         </div>
-      
+        <div className="theatres">
+          <h3>Theatres & Timings</h3>
+          <ul>
+              <li>
+                <h4>theatre name</h4>
+                <ul>
+                  <li >timings</li>
+                </ul>
+                <h4>theatre name</h4>
+                <ul>
+                  <li >timings</li>
+                </ul>
+                <h4>theatre name</h4>
+                <ul>
+                  <li >timings</li>
+                </ul>
+              </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default BookingPage;
+export default MovieDetails;
