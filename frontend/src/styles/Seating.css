@@ -38,7 +38,9 @@
 .seat.selected {
   background-color: rgb(28, 185, 120);
 }
-
+.seat.reserved{
+  background-color: grey;
+}
 .selected-seats {
   margin-top: 20px;
 }

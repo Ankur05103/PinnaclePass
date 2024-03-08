@@ -390,9 +390,9 @@
 
 // export { rows, rows2 };
 const rows = [
-    { id: 1, seat: "A1", isSelected: false, isReserved: false },
+    { id: 1, seat: "A1", isSelected: false, isReserved: true }, //true
     { id: 2, seat: "A2", isSelected: false, isReserved: false },
-    { id: 3, seat: "A3", isSelected: false, isReserved: false },
+    { id: 3, seat: "A3", isSelected: false, isReserved: true }, //true
     { id: 4, seat: "A4", isSelected: false, isReserved: false },
     { id: 5, seat: "A5", isSelected: false, isReserved: false },
     { id: 6, seat: "A6", isSelected: false, isReserved: false },
@@ -404,7 +404,7 @@ const rows = [
     { id: 12, seat: "A12", isSelected: false, isReserved: false },
     { id: 13, seat: "A13", isSelected: false, isReserved: false },
     { id: 14, seat: "A14", isSelected: false, isReserved: false },
-    { id: 15, seat: "A15", isSelected: false, isReserved: false },
+    { id: 15, seat: "A15", isSelected: false, isReserved: true },
     { id: 16, seat: "A16", isSelected: false, isReserved: false },
   ];
   

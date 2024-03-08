@@ -1,16 +1,16 @@
-import {React,useState} from 'react';
-import '../styles/MovieDetails.css';
-import { useParams,Link } from 'react-router-dom';
-import moviesData from '../utils/MoviesList.js';
-import theatersData from '../utils/theatersData.js'
-import '../styles/Seating.css'
+import { React, useState } from "react";
+import "../styles/MovieDetails.css";
+import { useParams } from "react-router-dom";
+import moviesData from "../utils/MoviesList.js";
+import theatersData from "../utils/theatersData.js";
+import "../styles/Seating.css";
 
 const MovieDetails = () => {
   const date = new Date();
 
   const [selectedDay, setSelectedDay] = useState();
-  const [selectedTime, setSelectedTime] = useState();
-  const [selectedDate, setSelectedDate] = useState();
+  const [_selectedTime, setSelectedTime] = useState();
+  const [_selectedDate, setSelectedDate] = useState();
   const renderDates = () => {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const dates = [];
@@ -47,18 +47,19 @@ const MovieDetails = () => {
     const times = ["11:00", "14:30", "18:00", "21:30"];
     return times.map((time, index) => (
       <div key={index}>
-        
-        <Link to={`/seats/${id}/${selectedDate}/${selectedTime}`}>
-        <button
-          className="seat-button"
-          // type="radio"
-          // name="time"
-          id={`t${index + 1}`}
-          
-          onClick={() => {
-            setSelectedTime(time);
-          }}
-        /></Link>
+        {/* <Link to={`/seats/${id}/${_selectedDate}/${_selectedTime}`}> */}
+        <a href={`/seats/${id}/${_selectedDate}/${_selectedTime}`}>
+          <button
+            className="seat-button"
+            // type="radio"
+            // name="time"
+            id={`t${index + 1}`}
+            onClick={() => {
+              setSelectedTime(time);
+            }}
+          />
+        </a>
+        {/* </Link> */}
         <label htmlFor={`t${index + 1}`} className="time">
           {time}
         </label>
@@ -66,10 +67,9 @@ const MovieDetails = () => {
     ));
   };
 
-
   let { id } = useParams();
 
-  const movie = moviesData[id-1]
+  const movie = moviesData[id - 1];
 
   if (!movie) {
     return <div>Loading...</div>;
@@ -83,10 +83,19 @@ const MovieDetails = () => {
             <img src={movie.poster} alt={movie.name} />
           </div>
           <div className="movie-info">
-            <p><strong>Name:</strong> {movie.name}</p>
-            <p><strong>Category:</strong> {movie.category}</p>
-            <p><strong>Languages:</strong> {movie.language}</p>
-            <p><strong>About the movie: </strong>{movie.about}</p>
+            <p>
+              <strong>Name:</strong> {movie.name}
+            </p>
+            <p>
+              <strong>Category:</strong> {movie.category}
+            </p>
+            <p>
+              <strong>Languages:</strong> {movie.language}
+            </p>
+            <p>
+              <strong>About the movie: </strong>
+              {movie.about}
+            </p>
           </div>
         </div>
         <div className="theatres">
@@ -106,28 +115,24 @@ const MovieDetails = () => {
                   <li >timings</li>
                 </ul>
               </li>
-          </ul> */
-          }
+          </ul> */}
           <div className="timings">
-        <div className="dates">{renderDates()}</div>
-      </div>
+            <div className="dates">{renderDates()}</div>
+          </div>
           <ul>
             {theatersData.map((theater, index) => (
               <li key={index}>
-                <ul className='timing-list'>
-                <h4>{theater.name}</h4>
+                <ul className="timing-list">
+                  <h4>{theater.name}</h4>
                   <div>
-                  <div className="timings">
-                    <div className="times">{renderTimes()}</div>
+                    <div className="timings">
+                      <div className="times">{renderTimes()}</div>
+                    </div>
                   </div>
-                  </div>
-                  
                 </ul>
-                
               </li>
             ))}
           </ul>
-
         </div>
       </div>
     </div>

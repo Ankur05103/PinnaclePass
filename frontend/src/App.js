@@ -33,7 +33,7 @@ function App() {
               element = {<MovieDetails/>}
             />
             <Route
-              path="/seats/:id/:date/:time"
+              path="/seats/:id/:_selectedDate/:_selectedTime"
               element = {<Seating/>}
             />
           </Routes>

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "../styles/Seating.css";
 import { rows, rows2 } from "../utils/data";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-const Seating = () => {
-  
-  let { id,_date,time } = useParams();
+const Seating = (props) => {
+  const { id, _selectedDate, _selectedTime } = useParams();
+
+  console.log(id, _selectedDate, _selectedTime);
+
   const date = new Date();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedDay, setSelectedDay] = useState("Sun");
@@ -18,7 +20,7 @@ const Seating = () => {
     const dates = [];
 
     for (let i = 0; i < 7; i++) {
-      const currentDate = new Date(); // Create a new date object for each iteration
+      const currentDate = new Date(); 
       currentDate.setDate(currentDate.getDate() + i);
 
       dates.push(
@@ -65,10 +67,12 @@ const Seating = () => {
   };
 
   const handleSeatClick = (seat) => {
-    if (selectedSeats.includes(seat)) {
-      setSelectedSeats(selectedSeats.filter((s) => s !== seat));
+    if (selectedSeats.includes(seat.seat)) {
+      setSelectedSeats(selectedSeats.filter((s) => s !== seat.seat));
+    } else if (seat.isReserved == true) {
+  alert('seat is reserved');
     } else {
-      setSelectedSeats([...selectedSeats, seat]);
+      setSelectedSeats([...selectedSeats, seat.seat]);
     }
   };
 
@@ -86,8 +90,8 @@ const Seating = () => {
               key={seat.id}
               className={`seat ${
                 selectedSeats.includes(seat.seat) ? "selected" : ""
-              }`}
-              onClick={() => handleSeatClick(seat.seat)}
+              } ${seat.isReserved ? "reserved" : ""}`}
+              onClick={() => handleSeatClick(seat)}
             >
               {seat.seat}
             </div>
@@ -98,7 +102,7 @@ const Seating = () => {
               className={`seat ${
                 selectedSeats.includes(seat.seat) ? "selected" : ""
               }`}
-              onClick={() => handleSeatClick(seat.seat)}
+              onClick={() => handleSeatClick(seat)}
             >
               {seat.seat}
             </div>
@@ -112,9 +116,9 @@ const Seating = () => {
       <div className="selected-seats">
         <p>Selected Seats: {selectedSeats.join(", ")}</p>
         <p>
-          Date of Show : {selectedDate} , {selectedDay}
+          Date of Show : {_selectedDate} , {selectedDay}
         </p>
-        <p>Time of Show: {selectedTime}</p>
+        <p>Time of Show: {_selectedTime}</p>
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
       <button>Book Now</button>
