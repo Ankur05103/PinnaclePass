@@ -1,7 +1,7 @@
 
 
 .movie-details-container {
-    max-width: 800px;
+    max-width: 95%;
     margin: auto;
   }
   
@@ -54,10 +54,10 @@
   .timing-list{
     display: flex;
     gap: 20px;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-bottom: 8px;
     margin-top: 8px;
-    border-bottom: 1px solid rgb(169, 169, 169);
+    border-top: 1px solid rgb(169, 169, 169);
     align-items: center;
   }
 

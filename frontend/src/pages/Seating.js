@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "../styles/Seating.css";
 import { rows, rows2 } from "../utils/data";
+import { useParams } from 'react-router-dom';
 
 const Seating = () => {
+  
+  let { id,_date,time } = useParams();
   const date = new Date();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedDay, setSelectedDay] = useState("Sun");
@@ -114,11 +117,12 @@ const Seating = () => {
         <p>Time of Show: {selectedTime}</p>
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
+      <button>Book Now</button>
 
-      <div className="timings">
+      {/* <div className="timings">
         <div className="dates">{renderDates()}</div>
         <div className="times">{renderTimes()}</div>
-      </div>
+      </div> */}
     </div>
   );
 };

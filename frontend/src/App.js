@@ -6,7 +6,7 @@ import Login from "./pages/Login"
 import Seating from "./pages/Seating";
 import Footer from "./components/Footer";
 import Movies from "./pages/MoviesPage";
-import MovieDetails from "./pages/BookingPage";
+import MovieDetails from "./pages/MovieDetails";
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
               element = {<MovieDetails/>}
             />
             <Route
-              path="/seats"
+              path="/seats/:id/:date/:time"
               element = {<Seating/>}
             />
           </Routes>
