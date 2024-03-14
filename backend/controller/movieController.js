@@ -1,23 +1,15 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const Movie = require('../models/movieSchema')
 
-const app = express();
-const port = 3000;
-
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-const Movie = mongoose.model('Movie', movieSchema);
-
-app.get('/movies', async (req, res) => {
+const getMovies = async (req, res) => {
     try {
         const movies = await Movie.find();
         res.json(movies);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+}
 
-// POST endpoint to add a new movie
-app.post('/movies', async (req, res) => {
+const postMovie = async (req, res) => {
     const { title, category, genre, languages, description } = req.body;
 
     if (!title || !category || !languages || !description) {
@@ -38,8 +30,8 @@ app.post('/movies', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+}
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+
+
+module.exports = {getMovies, postMovie}
