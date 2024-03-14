@@ -20,9 +20,9 @@ app.use((req,res,next) => {
 //routes 
 app.use('/api/user',userRoutes)
 app.use('/api/movie',movieRoutes)
-app.use('/api/theater',theaterRoutes)
 app.use('/api/show',showRoutes)
 app.use('/api/seat',seatRoutes)
+app.use('/api/theater',theaterRoutes)
 
 //listen for requests
 app.get('/', (req,res) => {

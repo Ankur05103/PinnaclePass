@@ -1,17 +1,25 @@
-const theater = require('../models/theatreSchema')
+const Theater = require('../models/theatreSchema')
 
-const gettheatersbyMovieId = async (req, res) => {
-    const movieId = req.params.movieId;
+const postTheaters = async (req,res) => {
+    const { theaterName, theaterLocation } = req.body;
 
     try {
-        // Find theaters associated with the given movie ID
-        const theaters = await theater.find({ movie: movieId });
+        // Create a new theater instance
+        const newTheater = new Theater({
+            theaterName,
+            theaterLocation
+        });
 
-        res.json(theaters);
+        // Save the new theater to the database
+        const savedTheater = await newTheater.save();
+
+        res.status(201).json(savedTheater);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(400).json({ message: error.message });
     }
+
 }
 
-module.exports = {gettheatersbyMovieId}
+
+module.exports = {postTheaters}
 

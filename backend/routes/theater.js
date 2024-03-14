@@ -3,9 +3,9 @@ const express = require('express')
 const router = express.Router()
 
 //controller functions
-const { gettheatersbyMovieId } = require( '../controller/theaterController')
+const { postTheaters } = require( '../controller/theaterController')
 
 // getTheater router
-router.get('/getTheatersbyMovieId/:movieId',gettheatersbyMovieId)
+router.post('/postTheaters',postTheaters)
 
 module.exports = router

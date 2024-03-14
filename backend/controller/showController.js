@@ -1,11 +1,11 @@
-// const show = require('../models/showSchema')
+const Show = require('../models/showSchema')
 
-const getshowsbyTheaterId = async (req, res) => {
-    const theaterId = req.params.theaterId;
+const getshowsbyMovieId = async (req, res) => {
+    const movieId = req.params.movieId;
 
     try {
         // Find shows associated with the given theater ID
-        const shows = await Show.find({ theater: theaterId });
+        const shows = await Show.find({ movie: movieId });
 
         res.json(shows);
     } catch (error) {
@@ -13,5 +13,25 @@ const getshowsbyTheaterId = async (req, res) => {
     }
 }
 
-module.exports = {getshowsbyTheaterId}
+const postShow = async (req,res) => {
+    const { theater, movie, startTime } = req.body;
+
+    try {
+        // Create a new show instance
+        const newShow = new Show({
+            theater: theater,
+            movie: movie,
+            startTime
+        });
+
+        // Save the new show to the database
+        const savedShow = await newShow.save();
+
+        res.status(201).json(savedShow);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = {getshowsbyMovieId,postShow}
 

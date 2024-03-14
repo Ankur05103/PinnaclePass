@@ -10,11 +10,6 @@ const theaterSchema = new Schema({
     theaterLocation:{
         type:String,
     },
-    movie: {
-        type: Schema.Types.ObjectId,
-        ref: 'Movie',
-        required: true
-    },
 })
 
 module.exports = mongoose.model('Theater',theaterSchema)
