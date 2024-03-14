@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const movieSchema = new Schema({
+    movieId: {
+        type: Number,
+        unique: true
+    },
     title:{
         type:String,
         required:true,
@@ -21,7 +25,13 @@ const movieSchema = new Schema({
     description:{
         type:String,
         required:true,
+    },
+    posterImage:{
+        type:String,
+        required:true
     }
 })
+
+
 
 module.exports = mongoose.model('Movie',movieSchema)

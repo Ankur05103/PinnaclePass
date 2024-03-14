@@ -8,9 +8,25 @@ const getMovies = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+const getMoviebyId = async (req, res) => {
+    const movieId = req.params.id;
+
+    try {
+        const movie = await Movie.findOne({ movieId: movieId });
+        
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+
+        res.json(movie);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 
 const postMovie = async (req, res) => {
-    const { title, category, genre, languages, description } = req.body;
+    const { title, category, genre, languages, description ,posterImage,movieId} = req.body;
 
     if (!title || !category || !languages || !description) {
         return res.status(400).json({ message: "Missing required fields" });
@@ -18,11 +34,13 @@ const postMovie = async (req, res) => {
 
     try {
         const newMovie = new Movie({
+            movieId,
             title,
             category,
             genre,
             languages,
-            description
+            description,
+            posterImage
         });
 
         const savedMovie = await newMovie.save();
@@ -34,4 +52,4 @@ const postMovie = async (req, res) => {
 
 
 
-module.exports = {getMovies, postMovie}
+module.exports = {getMovies, postMovie,getMoviebyId}
