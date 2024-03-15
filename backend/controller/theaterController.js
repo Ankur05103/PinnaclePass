@@ -1,5 +1,14 @@
 const Theater = require('../models/theatreSchema')
 
+
+const getTheaters = async(req, res) => {
+    try {
+        const theaters = await Theater.find();
+        res.status(200).json(theaters);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 const postTheaters = async (req,res) => {
     const { theaterName, theaterLocation } = req.body;
 
@@ -21,5 +30,5 @@ const postTheaters = async (req,res) => {
 }
 
 
-module.exports = {postTheaters}
+module.exports = {getTheaters, postTheaters}
 

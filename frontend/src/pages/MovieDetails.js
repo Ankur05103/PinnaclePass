@@ -1,9 +1,8 @@
-import { React, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/MovieDetails.css";
 import { useParams } from "react-router-dom";
-import moviesData from "../utils/MoviesList.js";
-import theatersData from "../utils/theatersData.js";
-import "../styles/Seating.css";
+import axios from "axios";
+import theatersData from '../utils/theatersData';
 
 const MovieDetails = () => {
   const date = new Date();
@@ -11,12 +10,45 @@ const MovieDetails = () => {
   const [selectedDay, setSelectedDay] = useState();
   const [_selectedTime, setSelectedTime] = useState();
   const [_selectedDate, setSelectedDate] = useState();
+  const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [theaters, setTheaters] = useState(null);
+  const { _id } = useParams();
+
+  useEffect(() => {
+    const fetchMovieById = async () => {
+      try {
+        const response = await axios.get(`/api/movie/getMoviebyId/${_id}`);
+        setMovie(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+        setLoading(false);
+      }
+    };
+    console.log();
+    fetchMovieById(movie);
+  }, [_id]);
+
+  useEffect(() => {
+    const fetchTheater = async () => {
+      try {
+        const response = await axios.get('/api/theater/getTheater');
+        setTheaters(response.data);
+      } catch (error) {
+        console.error("Error fetching Theater:", error);
+      }
+    };
+    console.log(theaters);
+    fetchTheater(theaters);
+  }, [_id]);
+
   const renderDates = () => {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const dates = [];
 
     for (let i = 0; i < 7; i++) {
-      const currentDate = new Date(); // Create a new date object for each iteration
+      const currentDate = new Date();
       currentDate.setDate(currentDate.getDate() + i);
 
       dates.push(
@@ -47,19 +79,15 @@ const MovieDetails = () => {
     const times = ["11:00", "14:30", "18:00", "21:30"];
     return times.map((time, index) => (
       <div key={index}>
-        {/* <Link to={`/seats/${id}/${_selectedDate}/${_selectedTime}`}> */}
-        <a href={`/seats/${id}/${_selectedDate}/${_selectedTime}`}>
+        <a href={`/seats/${_id}/${_selectedDate}/${_selectedTime}`}>
           <button
             className="seat-button"
-            // type="radio"
-            // name="time"
             id={`t${index + 1}`}
             onClick={() => {
               setSelectedTime(time);
             }}
           />
         </a>
-        {/* </Link> */}
         <label htmlFor={`t${index + 1}`} className="time">
           {time}
         </label>
@@ -67,12 +95,12 @@ const MovieDetails = () => {
     ));
   };
 
-  let { id } = useParams();
-
-  const movie = moviesData[id - 1];
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (!movie) {
-    return <div>Loading...</div>;
+    return <div>Movie not found.</div>;
   }
 
   return (
@@ -80,50 +108,34 @@ const MovieDetails = () => {
       <div className="movie-details">
         <div className="movie-details-top">
           <div className="movie-poster">
-            <img src={movie.poster} alt={movie.name} />
+            <img src={movie.posterImage} alt={movie.title} />
           </div>
           <div className="movie-info">
             <p>
-              <strong>Name:</strong> {movie.name}
+              <strong>Name:</strong> {movie.title}
             </p>
             <p>
               <strong>Category:</strong> {movie.category}
             </p>
             <p>
-              <strong>Languages:</strong> {movie.language}
+              {/* <strong>Languages:</strong> {movie.language} */}
             </p>
             <p>
               <strong>About the movie: </strong>
-              {movie.about}
+              {movie.description}
             </p>
           </div>
         </div>
         <div className="theatres">
           <h3>Theatres & Timings</h3>
-          {/* <ul>
-              <li>
-                <h4>theatre name</h4>
-                <ul>
-                  <li >timings</li>
-                </ul>
-                <h4>theatre name</h4>
-                <ul>
-                  <li >timings</li>
-                </ul>
-                <h4>theatre name</h4>
-                <ul>
-                  <li >timings</li>
-                </ul>
-              </li>
-          </ul> */}
           <div className="timings">
             <div className="dates">{renderDates()}</div>
           </div>
           <ul>
-            {theatersData.map((theater, index) => (
+            {theaters.map((theater, index) => (
               <li key={index}>
                 <ul className="timing-list">
-                  <h4>{theater.name}</h4>
+                  <h4>{theater.theaterName}</h4>
                   <div>
                     <div className="timings">
                       <div className="times">{renderTimes()}</div>
@@ -140,3 +152,17 @@ const MovieDetails = () => {
 };
 
 export default MovieDetails;
+
+
+// "_id": "65f2cd6713b933d257755fcd",
+//         "movieId": 1,
+//         "title": "Article 370",
+//         "category": "U/A",
+//         "genre": "Action/Thriller",
+//         "languages": [
+//             "Hindi"
+//         ],
+//         "description": "In the aftermath of the 2016 Kashmir unrest, a young local field agent, Zooni Haksar, is picked out by Rajeshwari Swaminathan from the Prime Minister`s Office for a top secret mission. Their aim? Cracking down on terrorism and putting an end to the billion dollar conflict economy in the valley, by doing the absolute impossible - Abrogating the notorious Article 370. That too, without spilling a single drop of innocent blood.",
+//         "posterImage": "https://assetscdn1.paytm.com/images/cinema/Article-370--705x750-0d1f18a0-b845-11ee-8af7-ef221f22e642.jpg?format=webp&imwidth=300",
+//         "__v": 0
+//     },

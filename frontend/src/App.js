@@ -29,7 +29,7 @@ function App() {
             element = {<Movies/>}
             />
             <Route
-              path="/booking/:id"
+              path="/booking/:_id"
               element = {<MovieDetails/>}
             />
             <Route
