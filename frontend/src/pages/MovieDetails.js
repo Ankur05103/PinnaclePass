@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../styles/MovieDetails.css";
 import { useParams,Link } from "react-router-dom";
 import axios from "axios";
-import ShowsByMovieId from "../components/Show";
 
 const MovieDetails = () => {
   const date = new Date();

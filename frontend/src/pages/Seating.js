@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../styles/Seating.css";
 import { rows, rows2 } from "../utils/data";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Seating = (props) => {
-  const { id, _selectedDate, _selectedTime } = useParams();
+  const { _id} = useParams();
 
-  console.log(id, _selectedDate, _selectedTime);
+  console.log("abc"+_id);
 
   const date = new Date();
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [selectedDay, setSelectedDay] = useState("Sun");
-  const [selectedTime, setSelectedTime] = useState("11:00");
-  const [selectedDate, setSelectedDate] = useState(date.getDate());
+  const [show,setShow] = useState([]);
   const seatPrice = 10;
+
+  useEffect(() => {
+    const fetchShow = async () => {
+      try {
+        const response = await axios.get(`/api/show/getShow/${_id}`);
+        setShow(response.data);
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+      }
+    };
+    fetchShow(_id)
+    console.log(show)
+  }, [show]);
 
   const renderDates = () => {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -32,8 +44,8 @@ const Seating = (props) => {
             id={`d${i + 1}`}
             defaultChecked={i === 0}
             onChange={() => {
-              setSelectedDay(days[currentDate.getDay()]);
-              setSelectedDate(currentDate.getDate());
+              // setSelectedDay(days[currentDate.getDay()]);
+              // setSelectedDate(currentDate.getDate());
             }}
           />
           <label htmlFor={`d${i + 1}`} className="dates-item">
@@ -57,7 +69,7 @@ const Seating = (props) => {
           name="time"
           id={`t${index + 1}`}
           defaultChecked={index === 0}
-          onChange={() => setSelectedTime(time)}
+          // onChange={() => setSelectedTime(time)}
         />
         <label htmlFor={`t${index + 1}`} className="time">
           {time}
@@ -79,6 +91,8 @@ const Seating = (props) => {
   const calculateTotalPrice = () => {
     return selectedSeats.length * seatPrice;
   };
+
+  
 
   return (
     <div className="seating">
@@ -116,9 +130,9 @@ const Seating = (props) => {
       <div className="selected-seats">
         <p>Selected Seats: {selectedSeats.join(", ")}</p>
         <p>
-          Date of Show : {_selectedDate} , {selectedDay}
+          Date & time of Show :{show[0].startTime}
         </p>
-        <p>Time of Show: {_selectedTime}</p>
+        {/* <p>Time of Show: </p> */}
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
       <button>Book Now</button>

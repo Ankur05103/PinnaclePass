@@ -56,7 +56,7 @@ const ShowsByMovieId = () => {
             <li key={show._id}>
               <TheaterDetails theaterId={show.theater}></TheaterDetails>
               <p>Show {FormatDateTime(show.startTime)}</p> {/* Call FormatDateTime directly */}
-              <a href={`/seats/${show._id}/12/09:00`}>
+              <a href={`/seats/${show._id}`}>
                 <button type="submit" onClick={()=>{}} className="bookButton">
                   Book
                 </button>

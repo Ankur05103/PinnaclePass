@@ -34,7 +34,7 @@ function App() {
               element = {<MovieDetails/>}
             />
             <Route
-              path="/seats/:id/:_selectedDate/:_selectedTime"
+              path="/seats/:_id/"
               element = {<Seating/>}
             />
             <Route

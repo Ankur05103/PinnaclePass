@@ -13,6 +13,19 @@ const getshowsbyMovieId = async (req, res) => {
     }
 }
 
+const getShow = async(req, res) => {
+    const _id = req.params._id;
+
+    try {
+        // Find shows associated with the given theater ID
+        const shows = await Show.find({ _id: _id });
+
+        res.json(shows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const postShow = async (req,res) => {
     const { theater, movie, startTime } = req.body;
 
@@ -33,5 +46,5 @@ const postShow = async (req,res) => {
     }
 }
 
-module.exports = {getshowsbyMovieId,postShow}
+module.exports = {getshowsbyMovieId,postShow,getShow}
 
