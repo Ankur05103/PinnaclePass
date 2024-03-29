@@ -1,17 +1,18 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Seating.css";
 import { rows, rows2 } from "../utils/data";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import FormatDateTime from "../components/date";
 
 const Seating = (props) => {
-  const { _id} = useParams();
+  const { _id } = useParams();
 
-  console.log("abc"+_id);
+  console.log("abc" + _id);
 
   const date = new Date();
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [show,setShow] = useState([]);
+  const [show, setShow] = useState([]);
   const seatPrice = 10;
 
   useEffect(() => {
@@ -23,8 +24,8 @@ const Seating = (props) => {
         console.error("Error fetching movie:", error);
       }
     };
-    fetchShow(_id)
-    console.log(show)
+    fetchShow(_id);
+    console.log(show);
   }, [show]);
 
   const renderDates = () => {
@@ -32,7 +33,7 @@ const Seating = (props) => {
     const dates = [];
 
     for (let i = 0; i < 7; i++) {
-      const currentDate = new Date(); 
+      const currentDate = new Date();
       currentDate.setDate(currentDate.getDate() + i);
 
       dates.push(
@@ -82,7 +83,7 @@ const Seating = (props) => {
     if (selectedSeats.includes(seat.seat)) {
       setSelectedSeats(selectedSeats.filter((s) => s !== seat.seat));
     } else if (seat.isReserved == true) {
-  alert('seat is reserved');
+      alert("seat is reserved");
     } else {
       setSelectedSeats([...selectedSeats, seat.seat]);
     }
@@ -91,8 +92,6 @@ const Seating = (props) => {
   const calculateTotalPrice = () => {
     return selectedSeats.length * seatPrice;
   };
-
-  
 
   return (
     <div className="seating">
@@ -129,9 +128,7 @@ const Seating = (props) => {
       </div>
       <div className="selected-seats">
         <p>Selected Seats: {selectedSeats.join(", ")}</p>
-        <p>
-          Date & time of Show :{show[0].startTime}
-        </p>
+        <p>Date & time of Show :{FormatDateTime(show[0].startTime)}</p>
         {/* <p>Time of Show: </p> */}
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>

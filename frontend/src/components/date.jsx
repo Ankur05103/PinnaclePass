@@ -1,23 +1,32 @@
 const FormatDateTime = (isoDateTime) => {
-    // Create a new Date object from the ISO 8601 date-time string\
+  const dateTime = new Date(isoDateTime);
 
-    const dateTime = new Date(isoDateTime);
+  const months = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December",
+  };
 
-    // Extract date components
-    const year = dateTime.getFullYear();
-    const month = ('0' + (dateTime.getMonth() + 1)).slice(-2);
-    const day = ('0' + dateTime.getDate()).slice(-2);
+  const day = ("0" + dateTime.getDate()).slice(-2);
+  const monthNumber = dateTime.getMonth() + 1;
+  const monthName = months[monthNumber];
+  const year = dateTime.getFullYear();
 
-    // Extract time components
-    const hours = ('0' + dateTime.getHours()).slice(-2);
-    const minutes = ('0' + dateTime.getMinutes()).slice(-2);
-    const seconds = ('0' + dateTime.getSeconds()).slice(-2);
+  const hours = ("0" + dateTime.getHours()).slice(-2);
+  const minutes = ("0" + dateTime.getMinutes()).slice(-2);
 
-    // Format the date and time
-    const formattedDateTime = `date : ${year}-${month}-${day} , time:  ${hours}:${minutes}:${seconds}`;
+  const formattedDateTime = `${day} ${monthName} ${year}, ${hours}:${minutes}`;
 
-    return formattedDateTime;
+  return formattedDateTime;
 };
-
 
 export default FormatDateTime;
