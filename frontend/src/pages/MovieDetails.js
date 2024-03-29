@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/MovieDetails.css";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import axios from "axios";
-import theatersData from '../utils/theatersData';
+import ShowsByMovieId from "../components/Show";
 
 const MovieDetails = () => {
   const date = new Date();
@@ -124,29 +124,25 @@ const MovieDetails = () => {
               <strong>About the movie: </strong>
               {movie.description}
             </p>
+            <Link to={`/Movies/${_id}/shows`} >
+                  <button className="bookButton">Book tickets</button>
+            </Link>
           </div>
         </div>
-        <div className="theatres">
-          <h3>Theatres & Timings</h3>
-          <div className="timings">
-            <div className="dates">{renderDates()}</div>
-          </div>
-          <ul>
-            {theaters.map((theater, index) => (
-              <li key={index}>
-                <ul className="timing-list">
-                  <h4>{theater.theaterName}</h4>
-                  <div>
-                    <div className="timings">
-                      <div className="times">{renderTimes()}</div>
-                    </div>
-                  </div>
-                </ul>
-              </li>
-            ))}
-          </ul>
+        <div>
+          <h2>About the movie : </h2>
+          <p>
+            
+          </p>
         </div>
+        <div>
+          <h2>Cast : </h2>
+        </div>
+        
+        <div>
       </div>
+      </div>
+      
     </div>
   );
 };

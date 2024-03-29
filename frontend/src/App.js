@@ -7,6 +7,7 @@ import Seating from "./pages/Seating";
 import Footer from "./components/Footer";
 import Movies from "./pages/MoviesPage";
 import MovieDetails from "./pages/MovieDetails";
+import ShowsByMovieId from "./components/Show";
 
 
 function App() {
@@ -29,12 +30,16 @@ function App() {
             element = {<Movies/>}
             />
             <Route
-              path="/booking/:_id"
+              path="/Movies/:_id"
               element = {<MovieDetails/>}
             />
             <Route
               path="/seats/:id/:_selectedDate/:_selectedTime"
               element = {<Seating/>}
+            />
+            <Route
+              path="/Movies/:movieId/shows"
+              element = {<ShowsByMovieId/>}
             />
           </Routes>
         </div>

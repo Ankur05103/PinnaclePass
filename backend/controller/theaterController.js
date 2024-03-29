@@ -29,6 +29,27 @@ const postTheaters = async (req,res) => {
 
 }
 
+const getTheaterById = async (req, res) => {
+    try {
+        // Extract theater ID from request parameters
+        const theaterId = req.params.theaterId;
 
-module.exports = {getTheaters, postTheaters}
+        // Query the database for the theater with the given ID
+        const theater = await Theater.findById(theaterId);
+
+        // If theater is not found, return 404 Not Found
+        if (!theater) {
+            return res.status(404).json({ message: 'Theater not found' });
+        }
+
+        // If theater is found, return it
+        res.status(200).json(theater);
+    } catch (error) {
+        // If an error occurs, return 500 Internal Server Error
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+module.exports = {getTheaters, postTheaters,getTheaterById}
 
