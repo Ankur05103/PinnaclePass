@@ -3,6 +3,7 @@ import {Link,useParams} from "react-router-dom"
 import axios from "axios";
 import TheaterDetails from "./Theater";
 import FormatDateTime from "./date";
+import "../styles/Shows.css"
 
 const ShowsByMovieId = () => {
   const [shows, setShows] = useState([]);
@@ -54,13 +55,19 @@ const ShowsByMovieId = () => {
         <ul>
           {shows.map((show) => (
             <li key={show._id}>
+              <div className="ShowComponent">
+              <div >
               <TheaterDetails theaterId={show.theater}></TheaterDetails>
               <p>Show : {FormatDateTime(show.startTime)}</p> {/* Call FormatDateTime directly */}
+              </div>
+              <div>
               <a href={`/seats/${show._id}`}>
                 <button type="submit" onClick={()=>{}} className="bookButton">
                   Book
                 </button>
               </a>
+              </div>
+              </div>
             </li>
           ))}
         </ul>

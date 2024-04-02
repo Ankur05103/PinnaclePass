@@ -62,7 +62,7 @@ const Seating = (props) => {
   const [seats, setSeats] = useState([]);
 
   useEffect(() => {
-    const showId = show._id;  //
+    const showId = _id;  //
     const fetchData = async () => {
       const seatsData = await fetchSeatsByShowId(showId);
       setSeats(seatsData);
@@ -114,37 +114,7 @@ const Seating = (props) => {
 
 export default Seating;
 
-// const renderDates = () => {
-//   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-//   const dates = [];
 
-//   for (let i = 0; i < 7; i++) {
-//     const currentDate = new Date();
-//     currentDate.setDate(currentDate.getDate() + i);
-
-//     dates.push(
-//       <div key={i}>
-//         <input
-//           className="seat-button"
-//           type="radio"
-//           name="date"
-//           id={`d${i + 1}`}
-//           defaultChecked={i === 0}
-//           onChange={() => {
-//             // setSelectedDay(days[currentDate.getDay()]);
-//             // setSelectedDate(currentDate.getDate());
-//           }}
-//         />
-//         <label htmlFor={`d${i + 1}`} className="dates-item">
-//           <div className="day">{days[currentDate.getDay()]}</div>
-//           <div className="date">{currentDate.getDate()}</div>
-//         </label>
-//       </div>
-//     );
-//   }
-
-//   return dates;
-// };
 
 // const renderTimes = () => {
 //   const times = ["11:00", "14:30", "18:00", "21:30"];

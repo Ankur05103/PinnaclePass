@@ -1,0 +1,13 @@
+/* style={{display:"inline-block"}} */
+
+.showDatesList {
+    display: inline-flex;
+    height: 100px;
+    align-items: center;
+}
+
+.ShowComponent{
+    display: inline-flex;
+    justify-content: space-between;
+    width: 50%;
+}
