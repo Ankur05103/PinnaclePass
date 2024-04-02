@@ -1,4 +1,4 @@
-// const Seat = require('../models/seatSchema')
+const Seat = require('../models/seatSchema')
 
 const getseatsbyshowId = async (req, res) => {
     const showId = req.params.showId;
@@ -13,42 +13,40 @@ const getseatsbyshowId = async (req, res) => {
     }
 }
 
-module.exports = {getseatsbyshowId}
 
 
-// const Seat = require('../models/Seat');
 
-// const postSeatsByShowId = async (req, res) => {
-//     const { showId, seatNumbers } = req.body;
+const postSeatsByShowId = async (req, res) => {
+    const { showId, seatNumbers } = req.body;
 
-//     try {
-//         // Create an array to store the newly created seats
-//         const createdSeats = [];
+    try {
+        // Create an array to store the newly created seats
+        const createdSeats = [];
 
-//         // Iterate through the provided seat numbers
-//         for (const seatNumber of seatNumbers) {
-//             // Create a new seat object
-//             const newSeat = new Seat({
-//                 seatNumber,
-//                 show: showId,
-//                 status: 'available' // Assuming all seats are initially available
-//             });
+        // Iterate through the provided seat numbers
+        for (const seatNumber of seatNumbers) {
+            // Create a new seat object
+            const newSeat = new Seat({
+                show: showId,
+                seatNumber,
+                isBooked: false
+            });
 
-//             // Save the new seat to the database
-//             const createdSeat = await newSeat.save();
+            // Save the new seat to the database
+            const createdSeat = await newSeat.save();
 
-//             // Push the created seat to the array
-//             createdSeats.push(createdSeat);
-//         }
+            // Push the created seat to the array
+            createdSeats.push(createdSeat);
+        }
 
-//         // Respond with the array of created seats
-//         res.status(201).json(createdSeats);
-//     } catch (error) {
-//         // Handle errors
-//         res.status(500).json({ message: error.message });
-//     }
-// }
+        // Respond with the array of created seats
+        res.status(201).json(createdSeats);
+    } catch (error) {
+        // Handle errors
+        res.status(500).json({ message: error.message });
+    }
+}
 
-// module.exports = { postSeatsByShowId };
+module.exports = {getseatsbyshowId,postSeatsByShowId}
 
 

@@ -93,11 +93,47 @@ const Seating = (props) => {
     return selectedSeats.length * seatPrice;
   };
 
+  const fetchSeatsByShowId = async (showId) => {
+    try {
+        // Make a request to your API to fetch seats by show ID
+        const response = await fetch(`/api/seat/getseatsbyshowId/${showId}`);
+        
+        // Check if the response is successful
+        if (!response.ok) {
+            throw new Error('Failed to fetch seats');
+        }
+
+        // Parse the response JSON
+        const seats = await response.json();
+        
+        // Return the array of seats
+        return seats;
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching seats:', error.message);
+        return []; // Return an empty array in case of error
+    }
+
+}
+
+
+const [seats, setSeats] = useState([]);
+
+useEffect(() => {
+  const showId = '65f2a2f63cd2304851af0100'; // Replace 'your_show_id' with the actual show ID
+  const fetchData = async () => {
+    const seatsData = await fetchSeatsByShowId(showId);
+    setSeats(seatsData);
+  };
+  fetchData();
+}, []);
+
+
   return (
     <div className="seating">
       <h2>Select Your Seats</h2>
       <div className="seat-container">
-        <div className="seat-grid">
+        {/* <div className="seat-grid">
           {rows.map((seat) => (
             <div
               key={seat.id}
@@ -120,7 +156,20 @@ const Seating = (props) => {
               {seat.seat}
             </div>
           ))}
-        </div>
+        </div> */}
+        <p>
+        {seats.map((seat, index) => (
+          <div
+              key={seat.id}
+              className={`seat ${
+                selectedSeats.includes(seat.seat) ? "selected" : ""
+              } ${seat.isReserved ? "reserved" : ""}`}
+              onClick={() => handleSeatClick(seat)}
+            >
+              {seat.seatNumber}
+            </div>
+        ))}
+        </p>
       </div>
       <div className="seats-screen">
         <div className="seat-screen-light"></div>
@@ -128,7 +177,7 @@ const Seating = (props) => {
       </div>
       <div className="selected-seats">
         <p>Selected Seats: {selectedSeats.join(", ")}</p>
-        <p>Date & time of Show :{FormatDateTime(show[0].startTime)}</p>
+        {show[0] ? <p>Date & time of Show :{FormatDateTime(show[0].startTime)}</p> : <p>Loading</p>} 
         {/* <p>Time of Show: </p> */}
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
