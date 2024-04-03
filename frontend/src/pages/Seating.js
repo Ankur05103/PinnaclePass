@@ -27,6 +27,8 @@ const Seating = (props) => {
   const [show, setShow] = useState([]);
   const seatPrice = 10; //price hardcode ahe te change karayla lagnar
 
+
+
   useEffect(() => {
     const fetchShow = async () => {
       try {
@@ -36,9 +38,11 @@ const Seating = (props) => {
         console.error("Error fetching movie:", error);
       }
     };
-    fetchShow(_id);
-    console.log(show);
-  }, [show]);
+
+    if (_id) {
+      fetchShow();
+    }
+  }, [_id]);
 
   const handleSeatClick = (seat) => {
 
@@ -77,13 +81,13 @@ const Seating = (props) => {
   const [seats, setSeats] = useState([]);
 
   useEffect(() => {
-    const showId = show.id;  //
+    const showId = _id;  //
     const fetchData = async () => {
       const seatsData = await fetchSeatsByShowId(showId);
       setSeats(seatsData);
     };
     fetchData();
-  }, []);
+  }, [_id]);
 
   return (
     <div className="seating">
@@ -149,3 +153,18 @@ export default Seating;
 //     </div>
 //   ));
 // };
+
+
+
+// useEffect(() => {
+  //   const fetchShow = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/show/getShow/${_id}`);
+  //       setShow(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching movie:", error);
+  //     }
+  //   };
+  //   fetchShow(_id);
+  //   console.log(show);
+  // }, [show, _id]);
