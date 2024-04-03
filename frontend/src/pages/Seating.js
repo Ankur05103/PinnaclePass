@@ -62,7 +62,7 @@ const Seating = (props) => {
   const [seats, setSeats] = useState([]);
 
   useEffect(() => {
-    const showId = show.id;  //
+    const showId = _id;  //
     const fetchData = async () => {
       const seatsData = await fetchSeatsByShowId(showId);
       setSeats(seatsData);
