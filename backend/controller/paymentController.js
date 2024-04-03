@@ -3,7 +3,6 @@ const paymentURL = "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
 const crypto = require("crypto");
 const axios  = require('axios');
 
-
 function generateTransactionId() {
   const timestamp = Date.now();
   const randomNumber = Math.floor(Math.random() * 1000000);
@@ -21,7 +20,7 @@ const makePayment = async (req, res) => {
       merchantTransactionId: generateTransactionId(),
       merchantUserId: "MUID123",
       amount: amount,
-      redirectUrl: "https://webhook.site/redirect-url",
+      redirectUrl: "http://localhost:4003/Booking/ticket",
       redirectMode: "REDIRECT",
       callbackUrl: "https://webhook.site/callback-url",
       mobileNumber: "9999999999",
@@ -56,14 +55,8 @@ const makePayment = async (req, res) => {
     axios
       .request(options)
       .then(async function (response) {
-        const phonePeTransactionId = response.data.transactionId;
-            res.status(201).send({
-                    msg: "payment done",
-                    status: "success",
-                    data: response.data,
-                    phonePeTransactionId: phonePeTransactionId,
-                });
-                console.log("Payment API Response:", response.data);
+        console.log("Payment API Response:", response.data);
+        return res.status(200).send(response.data.data.instrumentResponse.redirectInfo.url);
       })
       .catch(function (error) {
         console.error("Payment API Error:", error.message);

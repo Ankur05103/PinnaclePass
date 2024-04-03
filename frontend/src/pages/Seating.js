@@ -5,19 +5,7 @@ import FormatDateTime from "../components/date";
 import "../styles/Seating.css";
 
 
-const handleBookNowClick = async () => {
-  try {
-    const amount = 100; // You can set the amount dynamically or fetch it from somewhere
-    const response = await axios.post('/api/payment/makePayment', { amount });
-    const paymentUrl = response.data.data.redirectUrl; // Assuming redirectUrl is provided in the response
 
-    // Redirect to the payment URL
-    window.location.href = paymentUrl;
-  } catch (error) {
-    console.error('Error:', error);
-    // Handle error
-  }
-};
 
 const Seating = (props) => {
   const { _id } = useParams();
@@ -25,8 +13,22 @@ const Seating = (props) => {
   // const date = new Date();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [show, setShow] = useState([]);
-  const seatPrice = 10; //price hardcode ahe te change karayla lagnar
+  const seatPrice = 100; //price hardcode ahe te change karayla lagnar
 
+
+  const handleBookNowClick = async () => {
+    try {
+      const amount = seatPrice*100*(selectedSeats.length); // You can set the amount dynamically or fetch it from somewhere
+      const response = await axios.post('/api/payment/makePayment', { amount });
+      const paymentUrl = response.data; // Assuming redirectUrl is provided in the response
+  
+      // Redirect to the payment URL
+      window.location.href = paymentUrl;
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error
+    }
+  };
 
 
   useEffect(() => {
