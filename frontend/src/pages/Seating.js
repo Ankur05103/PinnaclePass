@@ -4,6 +4,21 @@ import { useParams } from "react-router-dom";
 import FormatDateTime from "../components/date";
 import "../styles/Seating.css";
 
+
+const handleBookNowClick = async () => {
+  try {
+    const amount = 100; // You can set the amount dynamically or fetch it from somewhere
+    const response = await axios.post('/api/payment/makePayment', { amount });
+    const paymentUrl = response.data.data.redirectUrl; // Assuming redirectUrl is provided in the response
+
+    // Redirect to the payment URL
+    window.location.href = paymentUrl;
+  } catch (error) {
+    console.error('Error:', error);
+    // Handle error
+  }
+};
+
 const Seating = (props) => {
   const { _id } = useParams();
   const showID = _id;
@@ -102,7 +117,7 @@ const Seating = (props) => {
         {/* <p>Time of Show: </p> */}
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
-      <button>Book Now</button>
+      <button onClick={handleBookNowClick}>Book Now</button>
 
       {/* <div className="timings">
         <div className="dates">{renderDates()}</div>
