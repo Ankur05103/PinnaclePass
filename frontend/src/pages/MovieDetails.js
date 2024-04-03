@@ -38,8 +38,9 @@ const MovieDetails = () => {
         console.error("Error fetching Theater:", error);
       }
     };
-    console.log(theaters);
-    fetchTheater(theaters);
+    // console.log(theaters);
+    if(_id)
+      fetchTheater(theaters);
   }, [_id]);
 
   const renderDates = () => {
