@@ -4,32 +4,43 @@ import { useParams } from "react-router-dom";
 import FormatDateTime from "../components/date";
 import "../styles/Seating.css";
 
-
-
-
 const Seating = (props) => {
   const { _id } = useParams();
-  const showID = _id;
+  let myseats;
   // const date = new Date();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [show, setShow] = useState([]);
   const seatPrice = 100; //price hardcode ahe te change karayla lagnar
 
-
   const handleBookNowClick = async () => {
     try {
-      const amount = seatPrice*100*(selectedSeats.length); // You can set the amount dynamically or fetch it from somewhere
-      const response = await axios.post('/api/payment/makePayment', { amount });
+      const amount = seatPrice * 100 * selectedSeats.length; // You can set the amount dynamically or fetch it from somewhere
+      const response = await axios.post("/api/payment/makePayment", { amount });
       const paymentUrl = response.data; // Assuming redirectUrl is provided in the response
-  
+
       // Redirect to the payment URL
       window.location.href = paymentUrl;
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       // Handle error
     }
   };
 
+  const reserveSeats = async (seats) => {
+    // console.log(seats);
+    try {
+      for (var i = 0; i < seats.length; i++) {
+        // console.log(_id);
+        const response = await axios.patch(
+          `/api/seat/patchseatsbyshowId/${_id}`,
+          { _id, seatNumber: seats[i] }
+        );
+        // console.log(response.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   useEffect(() => {
     const fetchShow = async () => {
@@ -47,8 +58,6 @@ const Seating = (props) => {
   }, [_id]);
 
   const handleSeatClick = (seat) => {
-
-    //itha patch lagnar isBooked update karayla
 
     if (selectedSeats.includes(seat.seatNumber)) {
       setSelectedSeats(selectedSeats.filter((s) => s !== seat.seatNumber));
@@ -83,7 +92,7 @@ const Seating = (props) => {
   const [seats, setSeats] = useState([]);
 
   useEffect(() => {
-    const showId = _id;  //
+    const showId = _id; //
     const fetchData = async () => {
       const seatsData = await fetchSeatsByShowId(showId);
       setSeats(seatsData);
@@ -123,7 +132,7 @@ const Seating = (props) => {
         {/* <p>Time of Show: </p> */}
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
-      <button onClick={handleBookNowClick}>Book Now</button>
+      <button onClick={() => reserveSeats(selectedSeats)}>Book Now</button>
 
       {/* <div className="timings">
         <div className="dates">{renderDates()}</div>
@@ -134,8 +143,6 @@ const Seating = (props) => {
 };
 
 export default Seating;
-
-
 
 // const renderTimes = () => {
 //   const times = ["11:00", "14:30", "18:00", "21:30"];
@@ -156,17 +163,15 @@ export default Seating;
 //   ));
 // };
 
-
-
 // useEffect(() => {
-  //   const fetchShow = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/show/getShow/${_id}`);
-  //       setShow(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching movie:", error);
-  //     }
-  //   };
-  //   fetchShow(_id);
-  //   console.log(show);
-  // }, [show, _id]);
+//   const fetchShow = async () => {
+//     try {
+//       const response = await axios.get(`/api/show/getShow/${_id}`);
+//       setShow(response.data);
+//     } catch (error) {
+//       console.error("Error fetching movie:", error);
+//     }
+//   };
+//   fetchShow(_id);
+//   console.log(show);
+// }, [show, _id]);

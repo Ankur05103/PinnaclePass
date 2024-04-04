@@ -8,11 +8,14 @@ const showRoutes = require('./routes/show')
 const seatRoutes = require('./routes/seat')
 const paymentRoutes = require('./routes/payment')
 
+const cors = require('cors');
+
 //express app
 const app = express()
 
 //middleware
 app.use(express.json())
+app.use(cors());
 app.use((req,res,next) => {
     console.log(req.path, req.method)
     next()
