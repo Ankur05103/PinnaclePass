@@ -125,7 +125,7 @@ const Seating = (props) => {
       <div className="selected-seats">
         <p>Selected Seats: {selectedSeats.join(", ")}</p>
         {show[0] ? (
-          <p>Date & time of Show :{FormatDateTime(show[0].startTime)}</p>
+          <p>Time:{FormatDateTime(show[0].startTime)}</p>
         ) : (
           <p>Loading</p>
         )}

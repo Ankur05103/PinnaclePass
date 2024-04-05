@@ -1,0 +1,11 @@
+.Theater-name {
+  font-size: 25px;
+  color: black;
+  margin-bottom: 9px;
+}
+
+.Theater-location {
+  font-size: 20px;
+  margin-top: 0;
+  color: gray;
+}

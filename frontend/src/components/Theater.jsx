@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import '../styles/Dates.css'
 const TheaterDetails = ({ theaterId }) => {
   const [theater, setTheater] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,10 +34,10 @@ const TheaterDetails = ({ theaterId }) => {
   }
 
   return (
-    <div>
+    <div className='Show-details-of-Theater'>
       {/* <h2>Theater Details</h2> */}
-      <p>Theater Name: {theater.theaterName}</p>
-      <p>Theater Location: {theater.theaterLocation}</p>
+      <p className='Theater-name'>{theater.theaterName}</p>
+      <p className='Theater-location'>{theater.theaterLocation}</p>
     </div>
   );
 };
