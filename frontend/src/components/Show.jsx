@@ -13,7 +13,7 @@ const ShowsByMovieId = () => {
   const { movieId } = useParams();
   const [SelectedDay, setSelectedDay] = useState([]);
   const [SelectedDate, setSelectedDate] = useState([]);
-
+  const [SelectedTime,setSelectedTime] = useState([]);
   useEffect(() => {
     const fetchMovieById = async () => {
       try {
@@ -94,61 +94,86 @@ const ShowsByMovieId = () => {
     return dates;
   };
 
-  const filteredShows = shows.filter((show) => {
+  const renderTimes = () => {
+    const times = ["00:00", "03:00", "06:00","08:30", "09:00", "12:00", "15:00", "18:00", "21:00"];
+
+  return times.map((time, index) => (
+    <div key={index}>
+      <input
+        className="seat-button"
+        type="radio"
+        name="time"
+        id={`t${index + 1}`}
+        // defaultChecked={index === 0}
+        onChange={() => setSelectedTime(time)}
+      />
+      <label htmlFor={`t${index + 1}`} className="time">
+        {time}
+      </label>
+    </div>
+  ));
+};
+
+  const _filteredShows = shows.filter((show) => {
     const showDate = new Date(show.startTime);
     return showDate.getDate() === SelectedDate;
   });
-  const groupedShowsArray = groupShowsByMovieAndTheater(filteredShows);
+  console.log(_filteredShows);
+  const filteredShows = _filteredShows.filter((show) => {
+    const showDate = new Date(show.startTime);
+  
+    showDate.setHours(showDate.getHours() - 5);
+    showDate.setMinutes(showDate.getMinutes() - 30);
+  
+    if (showDate.getHours() < 0) {
+      showDate.setDate(showDate.getDate() - 1);
+      showDate.setHours(showDate.getHours() + 24);
+    }
+    if (showDate.getMinutes() < 0) {
+      showDate.setHours(showDate.getHours() - 1);
+      showDate.setMinutes(showDate.getMinutes() + 60);
+    }
+  
+    const hours = ("0" + showDate.getHours()).slice(-2);
+    const minutes = ("0" + showDate.getMinutes()).slice(-2);
+    const time = `${hours}:${minutes}`;
+  
+    return time === SelectedTime;
+  });
+  
+  
+  
   return (
     <div className="Show-details">
       {movie && <h1 className="show-movie-name">{movie.title}</h1>}
       <h2>Dates available</h2>
       <div className="timings">
         <div className="dates">{renderDates()}</div>
+        <div className="times">{renderTimes()}</div>
       </div>
       <h2 className="shows-details">Shows :</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <ul>
-          {Object.entries(groupedShowsArray).map(([key, showsGroup]) => {
-            const showTimes = showsGroup.map((show) =>
-              FormatDateTime(show.startTime).slice(-5)
-            );
-            console.log(showTimes);
-
-            return (
-              <li key={key}>
-                <div className="ShowComponent">
-                  <div>
-                    <TheaterDetails
-                      theaterId={showsGroup[0].theater}
-                    ></TheaterDetails>
-                    <p>
-                      Show :{" "}
-                      {showTimes.map((showTime, index) => (
-                        <span key={index}>
-                          {showTime}
-                          {index < showTimes.length - 1 ? " " : ""}
-                        </span>
-                      ))}
-                    </p>
-                  </div>
-                  <div>
-                    <a href={`/seats/${showsGroup[0]._id}`}>
-                      <button
-                        type="submit"
-                        onClick={() => {}}
-                        className="bookButton"
-                      >
-                        Book
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
+          {console.log("here are the filtered show :", filteredShows)}
+          {filteredShows.map((show) => (
+            <li key={show._id}>
+              <div className="ShowComponent">
+              <div >
+              <TheaterDetails theaterId={show.theater}></TheaterDetails>
+              <p>Show : {FormatDateTime(show.startTime)}</p> {/* Call FormatDateTime directly */}
+              </div>
+              <div>
+              <a href={`/seats/${show._id}`}>
+                <button type="submit" onClick={()=>{}} className="bookButton">
+                  Book
+                </button>
+              </a>
+              </div>
+              </div>
+            </li>
+          ))}
         </ul>
       )}
     </div>

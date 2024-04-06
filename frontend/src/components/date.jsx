@@ -1,6 +1,17 @@
 const FormatDateTime = (isoDateTime) => {
   const dateTime = new Date(isoDateTime);
-
+  const showDate = dateTime;
+  showDate.setHours(dateTime.getHours() - 5);
+    showDate.setMinutes(dateTime.getMinutes() - 30);
+  
+    if (showDate.getHours() < 0) {
+      showDate.setDate(showDate.getDate() - 1);
+      showDate.setHours(showDate.getHours() + 24);
+    }
+    if (showDate.getMinutes() < 0) {
+      showDate.setHours(showDate.getHours() - 1);
+      showDate.setMinutes(showDate.getMinutes() + 60);
+    }
   const months = {
     1: "January",
     2: "February",
@@ -21,8 +32,8 @@ const FormatDateTime = (isoDateTime) => {
   const monthName = months[monthNumber];
   const year = dateTime.getFullYear();
 
-  const hours = ("0" + dateTime.getHours()).slice(-2);
-  const minutes = ("0" + dateTime.getMinutes()).slice(-2);
+  const hours = ("0" + showDate.getHours()).slice(-2);
+  const minutes = ("0" + showDate.getMinutes()).slice(-2);
 
   const formattedDateTime = `${day} ${monthName} ${year}, ${hours}:${minutes}`;
 

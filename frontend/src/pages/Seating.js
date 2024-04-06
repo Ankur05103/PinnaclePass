@@ -144,34 +144,3 @@ const Seating = (props) => {
 
 export default Seating;
 
-// const renderTimes = () => {
-//   const times = ["11:00", "14:30", "18:00", "21:30"];
-//   return times.map((time, index) => (
-//     <div key={index}>
-//       <input
-//         className="seat-button"
-//         type="radio"
-//         name="time"
-//         id={`t${index + 1}`}
-//         defaultChecked={index === 0}
-//         // onChange={() => setSelectedTime(time)}
-//       />
-//       <label htmlFor={`t${index + 1}`} className="time">
-//         {time}
-//       </label>
-//     </div>
-//   ));
-// };
-
-// useEffect(() => {
-//   const fetchShow = async () => {
-//     try {
-//       const response = await axios.get(`/api/show/getShow/${_id}`);
-//       setShow(response.data);
-//     } catch (error) {
-//       console.error("Error fetching movie:", error);
-//     }
-//   };
-//   fetchShow(_id);
-//   console.log(show);
-// }, [show, _id]);
