@@ -54,6 +54,9 @@
   align-items: center;
   justify-content: center;
 }
+.show_heading{
+  padding-left: 15px;
+}
 
 .dates {
   width: 100%;

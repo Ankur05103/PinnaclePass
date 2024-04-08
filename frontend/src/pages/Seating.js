@@ -105,6 +105,7 @@ const Seating = (props) => {
       <h2>Select Your Seats</h2>
       <div className="seat-container">
         <div className="seat-grid">
+          {seats.length === 0 && <p>No seats available</p>}
           {seats.map((seat) => (
             <div
               key={seat._id}
