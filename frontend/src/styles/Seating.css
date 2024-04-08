@@ -54,6 +54,9 @@
   align-items: center;
   justify-content: center;
 }
+.show_heading{
+  padding-left: 15px;
+}
 
 .dates {
   width: 100%;
@@ -90,9 +93,11 @@
 .times {
   max-width: 90%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
+
 .time {
   font-size: 14px;
   width: fit-content;
@@ -100,6 +105,9 @@
   background: rgb(233, 233, 233);
   border-radius: 2mm;
   cursor: pointer;
+  margin: 0;
+  margin-top: 25px;
+  margin-right: 60px;
 }
 .timings input:checked + label {
   background: #ff7f6d;

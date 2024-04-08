@@ -30,12 +30,12 @@ export default function Header() {
           
         </div>
 
-        <div className="nav-search">
+        {/* <div className="nav-search">
           <input type="text" className="nav-searchTerm" placeholder="Search" />
           <button type="submit" className="nav-searchButton">
             <FontAwesomeIcon icon={faSearch} />
           </button>
-        </div>
+        </div> */}
 
         <div className="Logout-div">
           {user && (

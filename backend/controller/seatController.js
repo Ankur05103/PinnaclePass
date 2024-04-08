@@ -47,6 +47,25 @@ const postSeatsByShowId = async (req, res) => {
     }
 }
 
-module.exports = {getseatsbyshowId,postSeatsByShowId}
+const patchSeatsByShowId = async (req, res) => {
+    const { showId } = req.params; 
+    const { seatNumber } = req.body;
+
+    try {
+        const response = await Seat.findOneAndUpdate({ show: showId, seatNumber }, { isBooked: true });
+
+        if (!response) {
+            return res.status(404).json({ message: 'Seat not found' });
+        }
+
+        res.status(200).send('Seat updated successfully');
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+module.exports = { getseatsbyshowId, postSeatsByShowId, patchSeatsByShowId };
+
 
 

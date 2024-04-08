@@ -6,12 +6,16 @@ const movieRoutes = require('./routes/movie')
 const theaterRoutes = require('./routes/theater')
 const showRoutes = require('./routes/show')
 const seatRoutes = require('./routes/seat')
+const paymentRoutes = require('./routes/payment')
+
+const cors = require('cors');
 
 //express app
 const app = express()
 
 //middleware
 app.use(express.json())
+app.use(cors());
 app.use((req,res,next) => {
     console.log(req.path, req.method)
     next()
@@ -23,6 +27,7 @@ app.use('/api/movie',movieRoutes)
 app.use('/api/show',showRoutes)
 app.use('/api/seat',seatRoutes)
 app.use('/api/theater',theaterRoutes)
+app.use('/api/payment',paymentRoutes)
 
 //listen for requests
 app.get('/', (req,res) => {

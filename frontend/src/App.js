@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Movies from "./pages/MoviesPage";
 import MovieDetails from "./pages/MovieDetails";
 import ShowsByMovieId from "./components/Show";
+import TicketDetails from "./pages/ticket"
 
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
             <Route
               path="/Movies/:movieId/shows"
               element = {<ShowsByMovieId/>}
+            />
+            <Route
+              path="/Booking/ticket"
+              element = {<TicketDetails/>}
             />
           </Routes>
         </div>

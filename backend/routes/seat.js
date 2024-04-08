@@ -1,12 +1,9 @@
-const express = require('express')
+const express = require('express');
+const router = express.Router();
+const { getseatsbyshowId, postSeatsByShowId, patchSeatsByShowId } = require('../controller/seatController');
 
-const router = express.Router()
+router.get('/getseatsbyshowId/:showId', getseatsbyshowId);
+router.post('/postseatsbyshowId', postSeatsByShowId);
+router.patch('/patchseatsbyshowId/:showId', patchSeatsByShowId); 
 
-//controller functions
-const { getseatsbyshowId, postSeatsByShowId } = require( '../controller/seatController')
-
-// getTheater router
-router.get('/getseatsbyshowId/:showId',getseatsbyshowId)
-router.post('/postseatsbyshowId',postSeatsByShowId)
-
-module.exports = router
+module.exports = router;
