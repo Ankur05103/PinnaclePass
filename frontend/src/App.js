@@ -43,7 +43,7 @@ function App() {
               element = {<ShowsByMovieId/>}
             />
             <Route
-              path="/Booking/ticket"
+              path="/Booking/ticket/:txnId/:showId/:selectedSeats"
               element = {<TicketDetails/>}
             />
           </Routes>

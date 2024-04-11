@@ -15,7 +15,7 @@ const Seating = (props) => {
   const handleBookNowClick = async () => {
     try {
       const amount = seatPrice * 100 * selectedSeats.length; // You can set the amount dynamically or fetch it from somewhere
-      const response = await axios.post("/api/payment/makePayment", { amount });
+      const response = await axios.post(`/api/payment/makePayment/${_id}/${selectedSeats}`, { amount });
       const paymentUrl = response.data; // Assuming redirectUrl is provided in the response
 
       // Redirect to the payment URL
@@ -133,7 +133,9 @@ const Seating = (props) => {
         {/* <p>Time of Show: </p> */}
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
-      <button onClick={() => reserveSeats(selectedSeats)}>Book Now</button>
+      <button onClick={
+        // () => reserveSeats(selectedSeats)
+        handleBookNowClick}>Book Now</button>
 
       {/* <div className="timings">
         <div className="dates">{renderDates()}</div>
