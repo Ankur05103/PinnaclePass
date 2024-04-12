@@ -1,36 +1,100 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import "../styles/TicketPage.css";
 import { useParams } from "react-router-dom";
+import TheaterDetails from "../components/Theater";
 
 const TicketDetails = () => {
   const currentUrl = window.location.href;
 
-const pathParts = currentUrl.split('/');
+  const pathParts = currentUrl.split("/");
 
-const seatInfo = pathParts[pathParts.length - 1];
+  const seatInfo = pathParts[pathParts.length - 1];
 
-const seats = seatInfo.split(',');
+  const seats = seatInfo.split(",");
 
-  const { txnId , showId, seatss}= useParams();
+  const { txnId, showId, seatss } = useParams();
 
   const [paymentData, setPaymentData] = useState(null);
 
+  const [showDetails, setShowDetails] = useState(null);
+  const [movieDetails, setMovieDetails] = useState(null);
+  const [theaterDetails, setTheaterDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchShowDetails = async () => {
+      try {
+        const response = await axios.get(
+          `/api/show/getShow/${paymentData.showId}`
+        );
+        setShowDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching show details:", error);
+      }
+    };
+
+    if (paymentData && paymentData.showId) {
+      fetchShowDetails();
+      console.log("Show loaded successfully...");
+      console.log(showDetails);
+    }
+  }, [paymentData]);
+
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      try {
+        console.log("here movie Id", showDetails[0].movie);
+        const response = await axios.get(
+          `/api/movie/getMoviebyId/${showDetails[0].movie}`
+        );
+        console.log("movie - ", response.data);
+        setMovieDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      }
+    };
+
+    if (showDetails) {
+      fetchMovieDetails();
+      console.log("Movie loaded successfully...");
+      console.log(movieDetails);
+    }
+  }, [showDetails]);
+
+  useEffect(() => {
+    const fetchTheaterDetails = async () => {
+      // if (showDetails && showDetails.theater) {
+      try {
+        const response = await axios.get(
+          `/api/theater/getTheaterbyId/${showDetails[0].theater}`
+        );
+        setTheaterDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching theater details:", error);
+      }
+      // }
+    };
+    if (showDetails) {
+      fetchTheaterDetails();
+    }
+  }, [showDetails]);
 
   const fetchPaymentStatus = async () => {
     try {
-      const response = await axios.get(`http://localhost:4002/api/payment/status/${txnId}/${showId}/${seats}`);
+      const response = await axios.get(
+        `http://localhost:4002/api/payment/status/${txnId}/${showId}/${seats}`
+      );
       const paymentData = response.data;
       setPaymentData(paymentData);
-  
+
       // Check the status after setting paymentData
       if (paymentData.status === "SUCCESS") {
         reserveSeats(seats); // Call reserveSeats if status is SUCCESS
       }
     } catch (error) {
-      console.log('Error fetching payment status:', error.message);
+      console.log("Error fetching payment status:", error.message);
     }
   };
-  
 
   const reserveSeats = async (seats) => {
     try {
@@ -47,14 +111,60 @@ const seats = seatInfo.split(',');
   };
 
   useEffect(() => {
-    fetchPaymentStatus(); 
+    fetchPaymentStatus();
   }, []);
 
   return (
     <div>
-      <h2>Tickets Booked Successfully</h2>
-      <p>Thank you for booking your tickets. Enjoy the show!</p>
-      
+      {paymentData ? (
+        <div>
+          <div className="ticket-container">
+            <div className="ticket-details">
+              <h2>Tickets Booked Successfully !!</h2>
+              
+              <div className="movie-poster">
+                <img src={movieDetails.posterImage} alt={movieDetails.title} />
+              </div>
+              <p>
+                <span className="detail-label">Movie Name :</span>{" "}
+                {movieDetails ? (
+                  JSON.stringify(movieDetails.title)
+                ) : (
+                  <p>Loding movie Details...</p>
+                )}
+              </p>
+              <p>
+                <span className="detail-label">Theater Name :</span>{" "}
+                {theaterDetails ? (
+                  JSON.stringify(theaterDetails.theaterName)
+                ) : (
+                  <p>Loding theater Details...</p>
+                )}
+              </p>
+              <p>
+                <span className="detail-label">Seats :</span>{" "}
+                {paymentData.selectedSeats.join(", ")}
+              </p>
+              <p>
+                <span className="detail-label">Show Time :</span>{" "}
+                {showDetails ? (
+                  JSON.stringify(showDetails[0].startTime)
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </p>
+              <p>
+                <span className="detail-label">Payment Amount:</span>{" "}
+                {paymentData.paymentAmount / 100} Rs
+              </p>
+              
+            </div>
+            <p>Thank you for booking your tickets. Enjoy the show!</p>
+          </div>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
