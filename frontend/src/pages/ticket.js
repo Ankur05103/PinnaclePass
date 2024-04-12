@@ -20,7 +20,7 @@ const seats = seatInfo.split(',');
     try {
       const response = await axios.get(`http://localhost:4002/api/payment/status/${txnId}/${showId}/${seats}`);
       const paymentData = response.data;
-      setPaymentData(paymentData); // Update the state with payment data
+      setPaymentData(paymentData);
   
       // Check the status after setting paymentData
       if (paymentData.status === "SUCCESS") {
