@@ -8,7 +8,7 @@ export default function MovieCard({movie}) {
       <div className="details">
         <h2>{movie.title}</h2>
         <p>{movie.category}</p>
-        <a href={`/Movies/${movie.movieId}`}><button type="submit" onClick={()=>{}} className="CardBtn">Show Details</button></a>
+        <a href={`/Movies/${movie._id}`}><button type="submit" onClick={()=>{}} className="CardBtn">Show Details</button></a>
       </div>
     </div>
   );

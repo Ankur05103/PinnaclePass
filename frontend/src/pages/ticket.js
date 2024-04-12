@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../styles/TicketPage.css";
 import { useParams } from "react-router-dom";
-import TheaterDetails from "../components/Theater";
+import FormatDateTime from "../components/date";
 
 const TicketDetails = () => {
   const currentUrl = window.location.href;
@@ -119,24 +119,58 @@ const TicketDetails = () => {
       {paymentData ? (
         <div>
           <div className="ticket-container">
-            <div className="ticket-details">
-              <h2>Tickets Booked Successfully !!</h2>
-              
-              <div className="movie-poster">
+            <h2>Tickets Booked Successfully !!</h2>
+            <div className="inner-ticket">
+            <div className="ticket-poster">
+              {movieDetails && (
                 <img src={movieDetails.posterImage} alt={movieDetails.title} />
-              </div>
-              <p>
-                <span className="detail-label">Movie Name :</span>{" "}
+              )}
+            </div>
+            <div className="ticket-details">
+              <h2>
+                {/* <span className="detail-label">Movie Name :</span>{" "} */}
                 {movieDetails ? (
-                  JSON.stringify(movieDetails.title)
+                  movieDetails.title
                 ) : (
                   <p>Loding movie Details...</p>
                 )}
-              </p>
+                <span>
+                ({movieDetails ? (
+                  movieDetails.category
+                ) : (
+                  <p>Loding movie Details...</p>
+                )})
+              </span>
+              </h2>
+              <span>
+              {movieDetails ? (
+                  movieDetails.languages
+                ) : (
+                  <p>Loding movie Details...</p>
+                )}
+              </span>
+               , 
+              <span>
+              {movieDetails ? (
+                  movieDetails.genre
+                ) : (
+                  <p>Loding movie Details...</p>
+                )}
+              </span>
+              
               <p>
-                <span className="detail-label">Theater Name :</span>{" "}
+              <p>
+                {/* <span className="detail-label">Show Time :</span>{" "} */}
+                {showDetails ? (
+                  
+                FormatDateTime(showDetails[0].startTime)
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </p>
+                {/* <span className="detail-label">Theater Name :</span>{" "} */}
                 {theaterDetails ? (
-                  JSON.stringify(theaterDetails.theaterName)
+                    theaterDetails.theaterName
                 ) : (
                   <p>Loding theater Details...</p>
                 )}
@@ -145,21 +179,14 @@ const TicketDetails = () => {
                 <span className="detail-label">Seats :</span>{" "}
                 {paymentData.selectedSeats.join(", ")}
               </p>
-              <p>
-                <span className="detail-label">Show Time :</span>{" "}
-                {showDetails ? (
-                  JSON.stringify(showDetails[0].startTime)
-                ) : (
-                  <p>Loading...</p>
-                )}
-              </p>
+              
               <p>
                 <span className="detail-label">Payment Amount:</span>{" "}
-                {paymentData.paymentAmount / 100} Rs
+                {(paymentData.paymentAmount / 100).toFixed(2)} Rs
               </p>
-              
             </div>
-            <p>Thank you for booking your tickets. Enjoy the show!</p>
+            </div>
+            <p>Thank you for booking the tickets. Enjoy the show!</p>
           </div>
         </div>
       ) : (

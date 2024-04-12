@@ -28,7 +28,7 @@ const Home = ()=>{
         
       <div className="movies">
         {movies.map((movie) => (
-          <MovieCard key={movie.movieId} movie={movie} />
+          <MovieCard key={movie._id} movie={movie} />
         ))}
       </div>
       </div>
