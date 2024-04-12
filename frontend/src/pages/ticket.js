@@ -120,13 +120,17 @@ const TicketDetails = () => {
         <div>
           <div className="ticket-container">
             <h2>Tickets Booked Successfully !!</h2>
+            <div className="ticket-details">
+              <div className="Ticket-Row">
+                  <p>Your Ticket</p>
+            </div>
             <div className="inner-ticket">
             <div className="ticket-poster">
               {movieDetails && (
                 <img src={movieDetails.posterImage} alt={movieDetails.title} />
               )}
             </div>
-            <div className="ticket-details">
+            <div >
               <h2>
                 {/* <span className="detail-label">Movie Name :</span>{" "} */}
                 {movieDetails ? (
@@ -176,17 +180,27 @@ const TicketDetails = () => {
                 )}
               </p>
               <p>
-                <span className="detail-label">Seats :</span>{" "}
+                <span >Seats :</span>{" "}
                 {paymentData.selectedSeats.join(", ")}
               </p>
+               
+            <p>
+                <span >Ticket Id :</span>{" "}
+                {paymentData._id}
+              </p>
               
+            </div>
+            </div>
+            {/* <p>Thank you for booking the tickets. Enjoy the show!</p> */}
+             <div className="Ticket-Row">
               <p>
-                <span className="detail-label">Payment Amount:</span>{" "}
+                <span>Total Amount:</span>{" "}
                 {(paymentData.paymentAmount / 100).toFixed(2)} Rs
               </p>
+              </div>
             </div>
-            </div>
-            <p>Thank you for booking the tickets. Enjoy the show!</p>
+            
+            
           </div>
         </div>
       ) : (
