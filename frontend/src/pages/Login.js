@@ -23,7 +23,7 @@ const Login = () => {
   useEffect(() => {
     console.log(Loginerror);
     if (user) {
-      navigate("/");
+      navigate(-1);
       toast.success("Login/Signup Successful");
     } else {
       if (LoginisLoading === false && Loginerror) {
