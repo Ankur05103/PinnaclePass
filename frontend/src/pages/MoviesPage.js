@@ -58,7 +58,7 @@ const Movies = () => {
       <h2 className="TopPicks">Movies in Theatres</h2>
       <div className="movies">
         {movies.map((movie) => (
-          <MovieCard key={movie.movieId} movie={movie} />
+          <MovieCard key={movie._id} movie={movie} />
         ))}
       </div>
     </div>

@@ -2,10 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FormatDateTime from "../components/date";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { toast } from "react-hot-toast"
 import "../styles/Seating.css";
 
 const Seating = (props) => {
   const { _id } = useParams();
+  const { user } = useAuthContext()
   let myseats;
   // const date = new Date();
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -14,12 +17,16 @@ const Seating = (props) => {
 
   const handleBookNowClick = async () => {
     try {
+      if(user){
       const amount = seatPrice * 100 * selectedSeats.length; // You can set the amount dynamically or fetch it from somewhere
-      const response = await axios.post("/api/payment/makePayment", { amount });
+      const response = await axios.post(`/api/payment/makePayment/${_id}/${selectedSeats}`, { amount });
       const paymentUrl = response.data; // Assuming redirectUrl is provided in the response
 
       // Redirect to the payment URL
       window.location.href = paymentUrl;
+    }else{
+      toast.error("Please Login to Book tickets")
+    }
     } catch (error) {
       console.error("Error:", error);
       // Handle error
@@ -133,7 +140,9 @@ const Seating = (props) => {
         {/* <p>Time of Show: </p> */}
         <p>Total Price: ₹{calculateTotalPrice()}</p>
       </div>
-      <button onClick={() => reserveSeats(selectedSeats)}>Book Now</button>
+      <button onClick={
+        // () => reserveSeats(selectedSeats)
+        handleBookNowClick}>Book Now</button>
 
       {/* <div className="timings">
         <div className="dates">{renderDates()}</div>

@@ -12,7 +12,7 @@ const getMoviebyId = async (req, res) => {
     const movieId = req.params.id;
 
     try {
-        const movie = await Movie.findOne({ movieId: movieId });
+        const movie = await Movie.findOne({ _id: movieId });
         
         if (!movie) {
             return res.status(404).json({ message: "Movie not found" });

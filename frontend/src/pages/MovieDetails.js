@@ -25,7 +25,6 @@ const MovieDetails = () => {
         setLoading(false);
       }
     };
-    console.log();
     fetchMovieById(movie);
   }, [_id]);
 

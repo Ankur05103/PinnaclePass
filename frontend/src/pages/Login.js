@@ -1,151 +1,121 @@
-import { useState } from "react"
-import '../styles/Login.css'
-import { useLogin } from "../hooks/useLogin"
-import { useSignup } from "../hooks/useSignup"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-hot-toast"
-
-// const Signup = () => {
-//   const [email, setEmail] = useState('')
-//   const [password, setPassword] = useState('')
-//   const [mobile, setMobile] = useState('')
-//   const {signup,error,isLoading} = useSignup()
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault()
-
-//     // console.log(email, password)
-//     await signup(email, password,mobile)
-//   }
-
-//   return (
-//     <form className="login" onSubmit={handleSubmit}>
-//       <h2>Sign Up</h2>
-      
-//       <label>Email address:</label>
-//       <input 
-//         type="email" 
-//         onChange={(e) => setEmail(e.target.value)} 
-//         value={email} 
-//       />
-//       <label>Password:</label>
-//       <input 
-//         type="password" 
-//         onChange={(e) => setPassword(e.target.value)} 
-//         value={password} 
-//       />
-
-//       <button disabled={isLoading}>Sign up</button>
-//       {error && <div className="error">{error}</div>}
-//     </form>
-//   )
-// }
+import { useEffect, useState } from "react";
+import "../styles/Login.css";
+import { useLogin } from "../hooks/useLogin";
+import { useSignup } from "../hooks/useSignup";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Login = () => {
-  console.log("000000000")
-  const navigate=useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [mobile, setMobile] = useState('')
-  const {login,error: Loginerror,isLoading: LoginisLoading} = useLogin()
-  const {signup,error: Signuperror,isLoading: SignupisLoading} = useSignup()
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [cnfpassword,setCnfpassword] = useState("");
+  const [mobile, setMobile] = useState("");
+  const { login, error: Loginerror, isLoading: LoginisLoading } = useLogin();
+  const {
+    signup,
+    error: Signuperror,
+    isLoading: SignupisLoading,
+  } = useSignup();
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    console.log(Loginerror);
+    if (user) {
+      navigate("/");
+      toast.success("Login/Signup Successful");
+    } else {
+      if (LoginisLoading === false && Loginerror) {
+        toast.error(Loginerror);
+      } else if (LoginisLoading === false) {
+        toast.error("Login Failed - Unknown reason");
+      } else if (SignupisLoading === false && Signuperror) {
+        toast.error(Signuperror);
+      }
+    }
+  }, [user, Loginerror, Signuperror]);
 
   const handleLoginSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    // console.log(email, password)
-    await login(email,password)
-    navigate("/")
-    toast.success("Login Successful")
-  }
+    await login(email, password);
+    console.log("LoginisLoading - ", LoginisLoading);
+    console.log("LoginError - ", Loginerror);
+  };
 
   const handleSignupSubmit = async (e) => {
-        e.preventDefault()
-    
-        // console.log(email, password)
-        await signup(email,password,mobile)
-        navigate("/")
-        toast.success("Signup Successful")
-      }
+    e.preventDefault();
+
+    await signup(email, password, mobile,cnfpassword);
+
+    console.log("SignupisLoading - ", SignupisLoading);
+    console.log("SignupError - ", Signuperror);
+  };
 
   return (
-    // <form className="login" onSubmit={handleSubmit}>
-    //   <h2>Log In</h2>
-      
-    //   <label>Email address:</label>
-    //   <input 
-    //     type="email" 
-    //     onChange={(e) => setEmail(e.target.value)} 
-    //     value={email} 
-    //   />
-    //   <label>Password:</label>
-    //   <input 
-    //     type="password" 
-    //     onChange={(e) => setPassword(e.target.value)} 
-    //     value={password} 
-    //   />
+    <div class="loginsignuppage">
+      <input type="checkbox" id="chk" aria-hidden="true" />
 
-    //   <button disabled={isLoading}>Log in</button>
-    //   {error && <div className="error">{error}</div>}
-    // </form>
-
-    // <div></div>
-
-    <div class="loginsignuppage">  	
-		<input type="checkbox" id="chk" aria-hidden="true"/>
-
-			<div class="signup">
-				<form className="signup-form" id="signup1" onSubmit={handleSignupSubmit}>
-					<label for="chk" aria-hidden="true">Sign up</label>
-					<input 
-          placeholder="Email Address"
-            type="email" 
-              onChange={(e) => setEmail(e.target.value)} 
-              value={email} 
+      <div class="signup">
+        <form
+          className="signup-form"
+          id="signup1"
+          onSubmit={handleSignupSubmit}
+        >
+          <label for="chk" aria-hidden="true">
+            Sign up
+          </label>
+          <input
+            placeholder="Email Address"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
           <input
-          placeholder="Mobile Number"
-          type="mobile" 
-          onChange={(e) => setMobile(e.target.value)} 
-          value={mobile}  
+            placeholder="Mobile Number"
+            type="mobile"
+            onChange={(e) => setMobile(e.target.value)}
+            value={mobile}
           />
-					<input
-          placeholder="Password"
-          type="password" 
-              onChange={(e) => setPassword(e.target.value)} 
-              value={password}  
+          <input
+            placeholder="Password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
-          <input type="password" name="cpswd" placeholder="Confirm Password" required=""/>
-					<button disabled={SignupisLoading}>Sign up</button>
-				</form>
-        <div>{Signuperror && <div className="error">{Signuperror}</div>} </div>
-			</div>
+          <input
+            type="text"
+            placeholder="Confirm Password"
+            onChange={(e) => setCnfpassword(e.target.value)}
+            value={cnfpassword}
+          />
+          <button disabled={SignupisLoading}>Sign up</button>
+        </form>
+      </div>
 
-			<div class="login">
-				<form className="signup-form" id="signup2" onSubmit={handleLoginSubmit}>
-					<label for="chk" aria-hidden="true">Login</label>
-					<input 
-          placeholder="Email"
-            type="email" 
-              onChange={(e) => setEmail(e.target.value)} 
-              value={email} 
+      <div class="login">
+        <form className="signup-form" id="signup2" onSubmit={handleLoginSubmit}>
+          <label for="chk" aria-hidden="true">
+            Login
+          </label>
+          <input
+            placeholder="Email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
-					<input
-          placeholder="Password"
-          type="password" 
-              onChange={(e) => setPassword(e.target.value)} 
-              value={password}  
+          <input
+            placeholder="Password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
-					<button disabled={LoginisLoading} >Login</button>
-          
-          {/* <div className="error">{error}</div> */}
-				</form>
-        <div>{Loginerror && <div className="error">{Loginerror} </div>} </div>
+          <button disabled={LoginisLoading}>Login</button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-			</div>
-      
-	</div>
-  )
-}
-
-export default Login
+export default Login;

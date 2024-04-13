@@ -23,11 +23,14 @@ const userSchema = new Schema({
 
 //static signup method with validation checks
 //we can't arrow function while using this keyword
-userSchema.statics.signup = async function(email,password,mobile) {
+userSchema.statics.signup = async function(email,password,mobile,cnfpassword) {
 
     //validation
     if(!email || !password || !mobile){
         throw Error('Email , password and mobile number are compulsary')
+    }
+    if(!cnfpassword){
+        throw Error('Please add confirm password')
     }
     if(!validator.isEmail(email)){
         throw Error('Enter a valid email')
@@ -38,12 +41,20 @@ userSchema.statics.signup = async function(email,password,mobile) {
     if(!validator.isMobilePhone(mobile)){
         throw Error('Wrong mobile phone number')
     }
+    if(password != cnfpassword){
+        throw Error('Password & confirm pasword is not matching')
+    }
 
 
-    const exists = await this.findOne({ email })
+    const emailExists = await this.findOne({ email })
 
-    if(exists) {
+    if(emailExists) {
         throw Error('Email already exists')
+    }
+
+    const mobileExists = await this.findOne({ mobile })
+    if(mobileExists) {
+        throw Error('Mobile Number already exists')
     }
 
     const salt = await bcrypt.genSalt(10)
