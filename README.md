@@ -1,1 +1,39 @@
-Hi everyone this is our WADl Project
+# Movie Ticket Booking Application
+
+The Movie Ticket Booking Application is a web-based platform that allows users to browse movies, select showtimes, and book tickets online. Leveraging modern technologies such as React.js, Node.js, and MongoDB, the application provides a seamless and intuitive user experience.
+
+## Features
+
+- Browse a list of available movies
+- View movie details including name, category, language, and poster
+- Select showtimes and view available seats
+- Book tickets securely online
+- Receive real-time updates on seat availability
+- View booking confirmation and ticket details
+
+## Technologies Used
+
+- **Frontend:** React.js
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Styling:** CSS
+- **State Management:** React Hooks
+- **Routing:** React Router
+- **API Interaction:** Axios
+
+movie-ticket-booking/
+│
+├── client/                  # Frontend code (React.js)
+│   ├── public/              # Public assets
+│   └── src/                 # Source files
+│       ├── components/      # React components
+│       ├── pages/           # Page components
+│       ├── styles/          # CSS stylesheets
+│       ├── utils/           # Utility functions
+│       └── App.js           # Main component
+│
+└── server/                  # Backend code (Node.js)
+    ├── controllers/         # Route controllers
+    ├── models/              # MongoDB models
+    ├── routes/              # Express routes
+    └── app.js               # Express app configuration
