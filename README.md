@@ -21,19 +21,3 @@ The Movie Ticket Booking Application is a web-based platform that allows users t
 - **Routing:** React Router
 - **API Interaction:** Axios
 
-movie-ticket-booking/
-│
-├── client/                  # Frontend code (React.js)
-│   ├── public/              # Public assets
-│   └── src/                 # Source files
-│       ├── components/      # React components
-│       ├── pages/           # Page components
-│       ├── styles/          # CSS stylesheets
-│       ├── utils/           # Utility functions
-│       └── App.js           # Main component
-│
-└── server/                  # Backend code (Node.js)
-    ├── controllers/         # Route controllers
-    ├── models/              # MongoDB models
-    ├── routes/              # Express routes
-    └── app.js               # Express app configuration
