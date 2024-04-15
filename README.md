@@ -20,4 +20,4 @@ This Movie Ticket Booking Application is a web-based platform that allows users 
 - **State Management:** React Hooks
 - **Routing:** React Router
 - **API Interaction:** Axios
-
+- **Payment Gateway:** PhonePe
