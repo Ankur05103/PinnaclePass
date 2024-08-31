@@ -1,4 +1,4 @@
-# PinnaclePass - Movie Ticket Booking Application
+# PinnaclePass - Movie Ticket Booking Application  
 
 This Movie Ticket Booking Application is a web-based platform that allows users to browse movies, select showtimes, and book tickets online. Leveraging modern technologies such as React.js, Node.js, and MongoDB, the application provides a seamless and intuitive user experience.
 
