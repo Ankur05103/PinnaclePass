@@ -14,8 +14,11 @@ const cors = require('cors');
 const app = express()
 
 //middleware
+const corsOptions = {
+    origin: "https://pinnaclepass-frontend.onrender.com"
+}
 app.use(express.json())
-app.use(cors());
+app.use(cors(corsOptions));
 app.use((req,res,next) => {
     console.log(req.path, req.method)
     next()
