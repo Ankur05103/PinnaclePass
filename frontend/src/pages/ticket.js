@@ -82,7 +82,7 @@ const TicketDetails = () => {
   const fetchPaymentStatus = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4002/api/payment/status/${txnId}/${showId}/${seats}`
+        `https://pinnaclepass-backend.onrender.com/api/payment/status/${txnId}/${showId}/${seats}`
       );
       const paymentData = response.data;
       setPaymentData(paymentData);
