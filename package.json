@@ -3,5 +3,20 @@
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "react-redux": "^9.1.0"
-  }
+  },
+  "name": "pinnaclepass",
+  "description": "Hi everyone this is our WADl Project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "install-server": "cd backend && npm install",
+    "start-server": "cd backend && node server.js",
+    "install-client": "cd frontend && npm install",
+    "build-client": "cd frontend && npm run build",
+    "start-client":"cd frontend && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
